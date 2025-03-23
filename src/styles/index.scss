@@ -1,0 +1,48 @@
+@import 'fonts';
+@import 'variables';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  box-shadow: none;
+  outline: none;
+  background: none;
+  border: none;
+  color: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: 1;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body, #root {
+  width: 100vw;
+  height: 100vh;
+  overflow: clip;
+}
+
+html {
+  font-family: var(--ff-base), sans-serif;
+  font-weight: var(--fw-base);
+  font-size: var(--fs-base);
+  color: var(--fc-base);
+}
+
+#root {
+  background-color: color-mix(in srgb, black, transparent 85%);
+  display: flex;
+  justify-content: center;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: white;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--c-accent);
+}

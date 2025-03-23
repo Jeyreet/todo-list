@@ -1,0 +1,72 @@
+@font-face {
+  font-family: "Exo 2";
+  src: url("../fonts/Exo2-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Exo 2";
+  src: url("../fonts/Exo2-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+:root {
+  --c-accent: #f1633d;
+  --fs-base: 16;
+  --fc-base: black;
+  --ff-base: "Exo 2";
+  --fw-base: 400;
+  --fw-bold: 700;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  box-shadow: none;
+  outline: none;
+  background: none;
+  border: none;
+  color: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: 1;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body, #root {
+  width: 100vw;
+  height: 100vh;
+  overflow: clip;
+}
+
+html {
+  font-family: var(--ff-base), sans-serif;
+  font-weight: var(--fw-base);
+  font-size: var(--fs-base);
+  color: var(--fc-base);
+}
+
+#root {
+  background-color: color-mix(in srgb, black, transparent 85%);
+  display: flex;
+  justify-content: center;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: white;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--c-accent);
+}
+
+/*# sourceMappingURL=index.css.map */

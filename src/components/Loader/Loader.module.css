@@ -1,0 +1,30 @@
+.Loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.image {
+  width: 30px;
+  aspect-ratio: 1;
+  animation: rotate 1s linear infinite;
+}
+@keyframes rotate {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+}
+
+.visible {
+  opacity: 1;
+}
+
+/*# sourceMappingURL=Loader.module.css.map */

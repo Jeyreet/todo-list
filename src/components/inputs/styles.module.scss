@@ -1,0 +1,24 @@
+.Input {
+  display: flex;
+  flex-direction: column;
+
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
+}
+
+.input {
+  margin-block: 5px;
+  background-color: color-mix(in srgb, var(--c-accent) 30%, transparent);
+  padding: 10px;
+
+  &:focus {
+    outline: 2px solid var(--c-accent);
+    outline-offset: 2px;
+  }
+}
+
+.error {
+  height: 1rem;
+  color: color-mix(in srgb, var(--c-accent) 60%, black);
+}

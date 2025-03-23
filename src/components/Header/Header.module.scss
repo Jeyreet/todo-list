@@ -1,0 +1,56 @@
+@use '../../styles/mixins';
+
+.Header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px;
+}
+
+.button {
+  display: none;
+
+  @include mixins.width(1200px) {
+    display: block;
+  }
+}
+
+.title {
+  --fontSize: 2.2rem;
+
+  font-size: var(--fontSize);
+
+  &:empty {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    height: var(--fontSize);
+    background-color: color-mix(in srgb, white 80%, black);
+    overflow: hidden;
+
+    &::before {
+      display: block;
+      position: absolute;
+      width: 70px;
+      height: 100%;
+      background: linear-gradient(to right, transparent, white, transparent);
+      content: '';
+      animation: move 1s linear infinite;
+
+      @keyframes move {
+        from {
+          translate: -100% 0;
+          left: 0;
+        }
+        50% {
+          translate: 0 0;
+          left: 100%;
+        }
+        to {
+          translate: 0 0;
+          left: 100%;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+.MenuLinkList {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.list, .item {
+  display: contents;
+}
+
+/*# sourceMappingURL=MenuLinkList.module.css.map */

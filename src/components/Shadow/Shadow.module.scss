@@ -1,0 +1,22 @@
+@use '../../styles/mixins';
+
+.Shadow {
+  position: fixed;
+  inset: 0;
+  background-color: transparent;
+  pointer-events: none;
+  transition: background-color .3s;
+  z-index: 1;
+
+  @include mixins.width(1200px) {
+    &.visible {
+      background-color: color-mix(in srgb, black, transparent 60%);
+      pointer-events: auto;
+    }
+  }
+
+  &.wideVisible {
+    background-color: color-mix(in srgb, black, transparent 60%);
+    pointer-events: auto;
+  }
+}

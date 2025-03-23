@@ -1,0 +1,46 @@
+.Menu {
+  width: 300px;
+  max-width: 75vw;
+  height: 100vh;
+  border-right: 10px solid var(--c-accent);
+  background-color: white;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  transition: translate 0.3s;
+  position: sticky;
+}
+@media (max-width: 1200px) {
+  .Menu {
+    translate: calc(-100% - 20px) 0;
+    box-shadow: 0 0 10px color-mix(in srgb, black, transparent 70%);
+    border-right: none;
+    position: fixed;
+    z-index: 2;
+  }
+  .Menu.open {
+    translate: 0 0;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.title {
+  font-size: 1.5rem;
+}
+
+.button {
+  display: none;
+}
+@media (max-width: 1200px) {
+  .button {
+    display: block;
+  }
+}
+
+/*# sourceMappingURL=Menu.module.css.map */

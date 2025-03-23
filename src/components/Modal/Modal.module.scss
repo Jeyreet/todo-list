@@ -1,0 +1,45 @@
+@use '../../styles/mixins';
+
+.Modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  scale: .7;
+  transition: opacity .3s, scale .3s;
+
+  &.open {
+    opacity: 1;
+    scale: 1;
+
+    .inner {
+      pointer-events: auto;
+    }
+  }
+}
+
+.inner {
+  width: 100vw;
+  height: 100vh;
+  box-shadow: 0 0 10px color-mix(in srgb, black, transparent 70%);
+  background-color: white;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+.actions {
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+  align-items: end;
+}
