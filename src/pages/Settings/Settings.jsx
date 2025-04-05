@@ -1,9 +1,10 @@
-import classes from './Settings.module.css'
 import { useEffect } from 'react'
-import { useApp } from '../../components/App/AppContext.jsx'
+import { useGlobalStore } from '../../hooks/useGlobalStore'
+
+import classes from './Settings.module.css'
 
 const Settings = () => {
-  const {setHeaderTitle} = useApp()
+  const setHeaderTitle = useGlobalStore(state => state.setHeaderTitle)
 
   useEffect(() => {
     setHeaderTitle('Настройки')

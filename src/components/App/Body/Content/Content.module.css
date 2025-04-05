@@ -1,0 +1,8 @@
+.Content {
+  flex-grow: 1;
+  flex-shrink: 1;
+  padding: 15px;
+  overflow-y: auto;
+}
+
+/*# sourceMappingURL=Content.module.css.map */

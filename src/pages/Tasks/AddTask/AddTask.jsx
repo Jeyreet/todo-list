@@ -1,23 +1,70 @@
-import classes from './AddTask.module.css'
-import modalClasses from '../../../components/Modal/Modal.module.css'
-import {Button} from '../../../components/buttons/Button/Button'
-import { useApp } from '../../../components/App/AppContext'
-import clsx from 'clsx'
-import {TextInput} from '../../../components/inputs/TextInput/TextInput'
+import { Button } from '../../../components/controls/Button/Button'
+import { TextInput } from '../../../components/controls/TextInput/TextInput'
+import { AreaInput } from '../../../components/controls/AreaInput/AreaInput'
+import { DateInput } from '../../../components/controls/DateInput/DateInput'
+
+import { useForm } from 'react-hook-form'
+import { useGlobalStore } from '../../../hooks/useGlobalStore'
+
+import modalClasses from '../../../components/App/Modal/Modal.module.css'
 
 const AddTask = () => {
-  const {closeModal} = useApp()
+  const isModalOpen = useGlobalStore(state => state.isModalOpen)
+  const closeModal = useGlobalStore(state => state.closeModal)
+  const addTask = useGlobalStore(state => state.addTask)
+
+  const {
+    control,
+    formState: { isValid },
+    handleSubmit,
+  } = useForm({
+    mode: 'onChange',
+    defaultValues: {
+      name: ''
+    }
+  })
+
+  const handleAddTask = (data) => {
+    closeModal()
+    addTask(data)
+  }
 
   return (
-    <div className={clsx(modalClasses.inner, classes.AddTask)}>
-      <h2 className={modalClasses.title}>Добавление задачи</h2>
-      <TextInput placeholder="Название" autoFocus />
-      <TextInput placeholder="Название" />
-      <div className={modalClasses.actions}>
-        <Button onClick={closeModal}>Добавить</Button>
-        <Button onClick={closeModal}>Отмена</Button>
-      </div>
-    </div>
+    <>
+      <h2 className={modalClasses.title}>
+        Добавление задачи
+      </h2>
+      <form onSubmit={handleSubmit(handleAddTask)}>
+        <div className={modalClasses.scroller}>
+          <TextInput
+            name="name"
+            label="Название"
+            rules={{ required: 'обязательное' }}
+            autoFocus={isModalOpen}
+            control={control}
+          />
+          <AreaInput
+            name="desc"
+            label="Описание"
+            control={control}
+          />
+          <DateInput
+            name="start"
+            label="Начало"
+            control={control}
+          />
+          <DateInput
+            name="end"
+            label="Конец"
+            control={control}
+          />
+        </div>
+        <div className={modalClasses.actions}>
+          <Button visualDisabled={!isValid} type="submit">Добавить</Button>
+          <Button onClick={closeModal}>Отмена</Button>
+        </div>
+      </form>
+    </>
   )
 }
 

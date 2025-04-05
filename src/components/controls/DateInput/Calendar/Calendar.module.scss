@@ -1,0 +1,58 @@
+@use '../../../../styles/mixins';
+
+.Calendar {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: background-color .3s;
+
+  &[inert] {
+    pointer-events: none;
+
+    .inner {
+      grid-template-rows: 0fr;
+      pointer-events: none;
+    }
+  }
+
+  @include mixins.not-hover {
+    background-color: color-mix(in srgb, black, transparent 60%);
+
+    &[inert] {
+      background-color: transparent;
+
+      .inner {
+        grid-template-rows: 1fr;
+        opacity: 0;
+        translate: 0 10px;
+      }
+    }
+  }
+}
+
+.inner {
+  position: absolute;
+  background-color: color-mix(in srgb, var(--c-accent) 30%, white);
+  display: grid;
+  grid-template-rows: 1fr;
+  gap: 5px;
+
+  transition: grid-template-rows .3s;
+
+  @include mixins.not-hover {
+    position: static;
+
+    transition: translate .3s, opacity .3s;
+  }
+}
+
+.hider {
+  overflow: hidden;
+}
+
+.padding {
+  padding: 5px;
+}

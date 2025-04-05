@@ -1,0 +1,43 @@
+.Menu {
+  display: contents;
+}
+@media (max-width: 1200px) {
+  .Menu {
+    display: block;
+    background-color: color-mix(in srgb, black, transparent 60%);
+    position: fixed;
+    inset: 0;
+    transition: background-color 0.3s;
+    z-index: 1;
+  }
+  .Menu[inert] {
+    pointer-events: none;
+    background-color: transparent;
+  }
+  .Menu[inert] .inner {
+    translate: calc(-100% - 20px) 0;
+  }
+}
+
+.inner {
+  width: 300px;
+  max-width: 75vw;
+  height: 100dvh;
+  border-right: 10px solid var(--c-accent);
+  background-color: white;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  transition: translate 0.3s, height 0.3s;
+}
+@media (max-width: 1200px) {
+  .inner {
+    box-shadow: 0 0 10px color-mix(in srgb, black, transparent 70%);
+    border-right: none;
+    position: fixed;
+    left: 0;
+    z-index: 2;
+  }
+}
+
+/*# sourceMappingURL=Menu.module.css.map */

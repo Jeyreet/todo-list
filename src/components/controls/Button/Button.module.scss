@@ -1,0 +1,74 @@
+@use '../../../styles/mixins';
+
+.Button {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+
+  &:not(:is([disabled], .visualDisabled, .loading)) {
+    .inner {
+      cursor: pointer;
+    }
+
+    @include mixins.hover {
+      .inner {
+        box-shadow: 0 0 15px color-mix(in srgb, var(--c-accent), transparent);
+      }
+    }
+
+    &:focus-visible {
+      .inner {
+        outline: 2px solid var(--c-accent);
+        outline-offset: 2px;
+      }
+    }
+
+    &:active {
+      .inner {
+        transition: .05s;
+        translate: 0 3px;
+        box-shadow: none;
+      }
+    }
+  }
+
+  &:is([disabled], .visualDisabled) {
+    & .inner {
+      background-color: color-mix(in srgb, var(--c-accent) 60%, white);
+      cursor: not-allowed;
+    }
+
+    & .content {
+      opacity: .7;
+    }
+
+    @include mixins.hover {
+      & .disableReason:not(:empty) {
+        opacity: 1;
+      }
+    }
+  }
+
+  &.loading {
+    & .inner {
+      background-color: color-mix(in srgb, var(--c-accent), black);
+      cursor: progress;
+    }
+
+    & .content {
+      opacity: .7;
+    }
+  }
+}
+
+.inner {
+  flex-grow: 1;
+  padding: 10px;
+  background-color: var(--c-accent);
+  color: white;
+  transition: translate .2s, background-color .2s, box-shadow .2s;
+}
+
+.content {
+  transition: opacity .2s;
+}

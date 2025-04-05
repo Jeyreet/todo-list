@@ -1,17 +1,9 @@
 .App {
   width: 100vw;
   max-width: 1500px;
-  height: 100vh;
+  height: 100dvh;
   display: flex;
   position: relative;
-}
-
-.rightSide {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  background-color: white;
 }
 
 /*# sourceMappingURL=App.module.css.map */

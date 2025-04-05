@@ -1,0 +1,43 @@
+@use '../../../styles/mixins';
+
+.Menu {
+  display: contents;
+
+  @include mixins.width(1200px) {
+    display: block;
+    background-color: color-mix(in srgb, black, transparent 60%);
+    position: fixed;
+    inset: 0;
+    transition: background-color .3s;
+    z-index: 1;
+
+    &[inert] {
+      pointer-events: none;
+      background-color: transparent;
+
+      .inner {
+        translate: calc(-100% - 20px) 0;
+      }
+    }
+  }
+}
+
+.inner {
+  width: 300px;
+  max-width: 75vw;
+  height: 100dvh;
+  border-right: 10px solid var(--c-accent);
+  background-color: white;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  transition: translate .3s, height .3s;
+
+  @include mixins.width(1200px) {
+    box-shadow: 0 0 10px color-mix(in srgb, black, transparent 70%);
+    border-right: none;
+    position: fixed;
+    left: 0;
+    z-index: 2;
+  }
+}

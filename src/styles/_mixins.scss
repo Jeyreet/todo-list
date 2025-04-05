@@ -29,6 +29,14 @@
   }
 }
 
+@mixin not-hover {
+  @media (hover: none) {
+    & {
+      @content;
+    }
+  }
+}
+
 @mixin outline {
   outline: 1px solid gray;
   outline-offset: -1px;

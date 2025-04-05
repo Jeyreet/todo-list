@@ -1,9 +1,10 @@
-import classes from './Home.module.css'
 import { useEffect } from 'react'
-import { useApp } from '../../components/App/AppContext.jsx'
+import { useGlobalStore } from '../../hooks/useGlobalStore'
+
+import classes from './Home.module.css'
 
 const Home = () => {
-  const {setHeaderTitle} = useApp()
+  const setHeaderTitle = useGlobalStore(state => state.setHeaderTitle)
 
   useEffect(() => {
     setHeaderTitle('Главная')

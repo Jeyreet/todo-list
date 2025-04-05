@@ -1,0 +1,23 @@
+.MenuLink {
+  margin-inline: -15px;
+  padding: 15px;
+  transition: background-color 0.2s, color 0.2s;
+}
+@media (hover: hover) {
+  .MenuLink:hover {
+    background-color: color-mix(in srgb, var(--c-accent), white);
+  }
+}
+.MenuLink:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: -5px;
+}
+.MenuLink.selected {
+  background-color: var(--c-accent);
+  color: white;
+}
+.MenuLink.selected:focus-visible {
+  outline: 2px solid white;
+}
+
+/*# sourceMappingURL=MenuHeader.module.css.map */

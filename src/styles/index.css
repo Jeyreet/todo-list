@@ -30,17 +30,39 @@
   background: none;
   border: none;
   color: inherit;
+  font-family: inherit;
   font-weight: inherit;
   font-size: inherit;
   line-height: 1;
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
+  resize: none;
+}
+
+form {
+  display: contents;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
 }
 
 html, body, #root {
   width: 100vw;
-  height: 100vh;
   overflow: clip;
+}
+
+html, body {
+  height: 100vh;
 }
 
 html {
@@ -54,6 +76,12 @@ html {
   background-color: color-mix(in srgb, black, transparent 85%);
   display: flex;
   justify-content: center;
+  height: 100dvh;
+}
+
+#portal {
+  position: relative;
+  z-index: 2;
 }
 
 ::-webkit-scrollbar {

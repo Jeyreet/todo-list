@@ -1,13 +1,12 @@
 import { createRoot } from 'react-dom/client'
-import './styles/index.css'
+
+import { HashRouter } from 'react-router-dom'
 import { App } from './components/App/App'
-import { AppProvider } from './components/App/AppContext'
-import {HashRouter} from 'react-router-dom'
+
+import './styles/index.css'
 
 createRoot(document.getElementById('root')).render(
   <HashRouter>
-    <AppProvider>
-      <App />
-    </AppProvider>
+    <App />
   </HashRouter>
 )
