@@ -3,6 +3,7 @@ import { Button } from '../../../components/controls/Button/Button'
 import { lazy } from 'react'
 import { useGlobalStore } from '../../../hooks/useGlobalStore'
 
+import clsx from 'clsx'
 import classes from './Task.module.css'
 import dayjs from 'dayjs'
 
@@ -26,7 +27,7 @@ export const Task = ({id, name, desc, done, start, end}) => {
   }
 
   return (
-    <div className={classes.Task}>
+    <div className={clsx(classes.Task, done && classes.done)}>
       <div className={classes.info}>
         <h3 className={classes.name}>{name}</h3>
         {desc && <p>{desc}</p>}

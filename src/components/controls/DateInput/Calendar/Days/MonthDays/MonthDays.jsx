@@ -7,14 +7,15 @@ export const MonthDays = () => {
   const {
     value,
     onChange,
+    close,
   } = useDateInput()
 
   const date = dayjs(value)
   const nowDay = date.date()
-  const monthStart = date.startOf('month')
-  const daysInMonth = monthStart.daysInMonth()
+  const daysInMonth = date.startOf('month').daysInMonth()
 
   const setDate = (day) => {
+    close()
     onChange(dayjs(value).date(day).format('YYYY-MM-DD'))
   }
 

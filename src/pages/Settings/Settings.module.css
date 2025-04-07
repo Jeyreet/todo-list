@@ -1,3 +1,7 @@
-
+.themePicker {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+}
 
 /*# sourceMappingURL=Settings.module.css.map */

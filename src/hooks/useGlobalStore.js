@@ -1,6 +1,17 @@
 import { create as useStore } from 'zustand'
 
+const themeColors = {
+  ORANGE: '--c-orange',
+  RED: '--c-red',
+  BLUE: '--c-blue',
+  PURPLE: '--c-purple',
+  GREEN: '--c-green',
+  CYAN: '--c-cyan',
+  BLACK: '--c-black',
+}
+
 const lsInitials = {
+  themeColor: themeColors.ORANGE,
   nextTaskId: 0,
   tasks: []
 }
@@ -52,6 +63,16 @@ export const useGlobalStore = useStore((set, get) => ({
   runAndSliceLastEscapeHandler: () => {
     get().escapeHandlers[get().escapeHandlers.length - 1]()
     set({escapeHandlers: get().escapeHandlers.slice(0, -1)})
+  },
+
+  themeColor: getLsValue('themeColor'),
+  setThemeColor: color => {
+    set({themeColor: color})
+    document.documentElement.style.setProperty('--c-accent', `var(${themeColors[color]})`)
+  },
+  updateThemeColor: color => {
+    get().setThemeColor(color)
+    setLsValue('themeColor', color)
   },
 
   nextTaskId: getLsValue('nextTaskId'),
@@ -110,7 +131,8 @@ const handleEscape = e => {
 
 const lsSetters = {
   nextTaskId: gss.setNextTaskId,
-  tasks: gss.setTasks
+  tasks: gss.setTasks,
+  themeColor: gss.setThemeColor
 }
 
 const handleLocalStorage = e => {
@@ -127,3 +149,4 @@ handleResize(mediaQuery)
 mediaQuery.addEventListener('change', handleResize)
 document.addEventListener('keydown', handleEscape)
 window.addEventListener('storage', handleLocalStorage)
+document.documentElement.style.setProperty('--c-accent', `var(${themeColors[getLsValue('themeColor')]})`)

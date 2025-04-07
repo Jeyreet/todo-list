@@ -5,10 +5,10 @@
   display: flex;
   align-items: start;
   gap: 15px;
-  transition: opacity 0.5s;
+  transition: background-color 0.3s;
 }
-.Task.hiding {
-  opacity: 0;
+.Task.done {
+  background-color: color-mix(in srgb, black 15%, white);
 }
 .Task .info {
   flex-grow: 1;

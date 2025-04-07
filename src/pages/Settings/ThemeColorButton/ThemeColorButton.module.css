@@ -1,0 +1,28 @@
+.ThemeColorButton .themeColor {
+  width: 100%;
+  height: 30px;
+  border: 1px solid white;
+}
+.ThemeColorButton .themeColor.orange {
+  background-color: var(--c-orange);
+}
+.ThemeColorButton .themeColor.red {
+  background-color: var(--c-red);
+}
+.ThemeColorButton .themeColor.blue {
+  background-color: var(--c-blue);
+}
+.ThemeColorButton .themeColor.purple {
+  background-color: var(--c-purple);
+}
+.ThemeColorButton .themeColor.green {
+  background-color: var(--c-green);
+}
+.ThemeColorButton .themeColor.cyan {
+  background-color: var(--c-cyan);
+}
+.ThemeColorButton .themeColor.black {
+  background-color: var(--c-black);
+}
+
+/*# sourceMappingURL=ThemeColorButton.module.css.map */
