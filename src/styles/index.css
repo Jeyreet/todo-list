@@ -29,17 +29,17 @@
   outline: none;
   background: none;
   border: none;
+  text-decoration: none;
+  list-style: none;
+  resize: none;
   color: inherit;
   font-family: inherit;
   font-weight: inherit;
   font-size: inherit;
-  line-height: 1;
-  text-decoration: none;
   -webkit-tap-highlight-color: transparent;
-  resize: none;
 }
 
-form {
+form, ul, li {
   display: contents;
 }
 

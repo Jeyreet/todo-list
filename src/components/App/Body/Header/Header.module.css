@@ -22,7 +22,7 @@
   position: relative;
   width: 100%;
   max-width: 300px;
-  height: var(--fontSize);
+  height: calc(var(--fontSize) * 1.2);
   background-color: color-mix(in srgb, white 80%, black);
   overflow: hidden;
 }

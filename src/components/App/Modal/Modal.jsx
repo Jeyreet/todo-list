@@ -3,12 +3,13 @@ import { useEscape } from '../../../hooks/useEscape'
 import { useGlobalStore } from '../../../hooks/useGlobalStore'
 
 import classes from './Modal.module.css'
+import modalClasses from "./Modal.module.css";
+import {Button} from "../../controls/Button/Button.jsx";
 
 export const Modal = () => {
   const isModalOpen = useGlobalStore(state => state.isModalOpen)
   const closeModal = useGlobalStore(state => state.closeModal)
   const modalContent = useGlobalStore(state => state.modalContent)
-  const modalSize = useGlobalStore(state => state.modalSize)
 
   const [resetKey, setResetKey] = useState(0)
 
@@ -23,17 +24,22 @@ export const Modal = () => {
       className={classes.Modal}
       onClick={closeModal}
       inert={!isModalOpen}
+      style={{
+        '--maxWidth': modalContent?.maxWidth,
+        '--maxHeight': modalContent?.maxHeight,
+        '--width': modalContent?.width,
+        '--height': modalContent?.height,
+      }}
     >
       <div
         className={classes.inner}
         onClick={e => e.stopPropagation()}
-        style={{
-          maxWidth: modalSize?.[0],
-          maxHeight: modalSize?.[1],
-        }}
       >
         <div key={resetKey} className={classes.keyWrapper}>
-          {modalContent}
+          <h2 className={classes.header}>
+            {modalContent?.title}
+          </h2>
+          {modalContent?.body}
         </div>
       </div>
     </div>

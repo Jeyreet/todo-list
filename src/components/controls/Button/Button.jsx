@@ -5,14 +5,19 @@ import { useState } from 'react'
 import clsx from 'clsx'
 import classes from './Button.module.css'
 
-export const Button = ({disabled, visualDisabled = disabled, type = 'button', children, className, onClick = () => {}, ...props}) => {
+export const Button = ({disabled, visualDisabled = disabled, secondary = false, type = 'button', children, className, onClick = () => {}, ...props}) => {
   const [loading, setLoading] = useState(false)
 
   return (
     <button
       type={type}
       disabled={disabled}
-      className={clsx(classes.Button, visualDisabled && classes.visualDisabled, loading && classes.loading, className)}
+      className={clsx(
+        classes.Button,
+        visualDisabled && classes.disabled,
+        secondary && classes.secondary,
+        loading && classes.loading,
+        className)}
       onClick={async () => {
         if (!loading && !disabled) {
           setLoading(true)

@@ -12,9 +12,9 @@ export const MenuLinkList = () => {
 
   return (
     <nav className={classes.MenuLinkList}>
-      <ul className={classes.list}>
+      <ul>
         {links.map((link) => (
-          <li className={classes.item} key={link.to}>
+          <li key={link.to}>
             <MenuLink to={link.to} autoFocus={link.focus}>{link.label}</MenuLink>
           </li>
         ))}

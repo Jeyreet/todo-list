@@ -1,7 +1,7 @@
 import { Button } from '../../../Button/Button'
 
 import { useMemo } from 'react'
-import { useDateInput } from '../../DateInputContext'
+import { useDateInput } from '../../DateInputContext.jsx'
 
 import classes from './Controls.module.css'
 import dayjs from "dayjs";

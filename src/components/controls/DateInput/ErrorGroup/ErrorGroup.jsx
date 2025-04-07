@@ -1,4 +1,4 @@
-import {useDateInput} from '../DateInputContext'
+import {useDateInput} from '../DateInputContext.jsx'
 
 import inputClasses from '../../Input.module.css'
 

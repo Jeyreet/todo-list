@@ -38,6 +38,8 @@
 @media (hover: none) {
   .inner {
     position: static;
+    width: calc(100vw - 30px) !important;
+    max-width: 350px;
     transition: translate 0.3s, opacity 0.3s;
   }
 }

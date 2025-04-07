@@ -44,6 +44,8 @@
 
   @include mixins.not-hover {
     position: static;
+    width: calc(100vw - 30px) !important;
+    max-width: 350px;
 
     transition: translate .3s, opacity .3s;
   }

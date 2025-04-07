@@ -33,11 +33,9 @@ export const useGlobalStore = useStore((set, get) => ({
 
   isModalOpen: false,
   modalContent: null,
-  modalSize: null,
-  openModal: (content, size) => set({
+  openModal: content => set({
     isModalOpen: true,
     modalContent: content,
-    modalSize: size,
   }),
   closeModal: () => set({isModalOpen: false}),
 

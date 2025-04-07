@@ -1,6 +1,6 @@
 import { Button } from '../../Button/Button'
 
-import { useDateInput } from '../DateInputContext'
+import {useDateInput} from '../DateInputContext.jsx'
 
 import clsx from 'clsx'
 import classes from './InputGroup.module.css'

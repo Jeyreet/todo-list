@@ -1,0 +1,13 @@
+.Collapser {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.3s;
+}
+.Collapser.closed {
+  grid-template-rows: 0fr;
+}
+.Collapser .cell {
+  overflow: hidden;
+}
+
+/*# sourceMappingURL=Collapser.module.css.map */

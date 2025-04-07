@@ -2,7 +2,7 @@ import { Controls } from './Controls/Controls'
 import { Days } from './Days/Days'
 import { Portal } from '../../../Portal'
 
-import { useDateInput } from '../DateInputContext'
+import { useDateInput } from '../DateInputContext.jsx'
 
 import classes from './Calendar.module.css'
 import {useEscape} from "../../../../hooks/useEscape.js";

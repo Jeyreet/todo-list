@@ -31,9 +31,6 @@ const AddTask = () => {
 
   return (
     <>
-      <h2 className={modalClasses.title}>
-        Добавление задачи
-      </h2>
       <form onSubmit={handleSubmit(handleAddTask)}>
         <div className={modalClasses.scroller}>
           <TextInput
@@ -61,7 +58,7 @@ const AddTask = () => {
         </div>
         <div className={modalClasses.actions}>
           <Button visualDisabled={!isValid} type="submit">Добавить</Button>
-          <Button onClick={closeModal}>Отмена</Button>
+          <Button onClick={closeModal} secondary>Отмена</Button>
         </div>
       </form>
     </>

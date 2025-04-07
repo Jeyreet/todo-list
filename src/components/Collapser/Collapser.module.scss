@@ -1,0 +1,14 @@
+.Collapser {
+  display: grid;
+  grid-template-rows: 1fr;
+
+  transition: grid-template-rows .3s;
+
+  &.closed {
+    grid-template-rows: 0fr;
+  }
+
+  .cell {
+    overflow: hidden;
+  }
+}
