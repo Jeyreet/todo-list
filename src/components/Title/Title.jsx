@@ -1,7 +1,8 @@
+import clsx from 'clsx'
 import classes from './Title.module.css'
 
-export const Title = ({children}) => {
+export const Title = ({className, children}) => {
   return (
-    <h3 className={classes.Title}>{children}</h3>
+    <h3 className={clsx(classes.Title, className)}>{children}</h3>
   )
 }

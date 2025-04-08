@@ -1,27 +1,32 @@
-.ThemeColorButton .themeColor {
-  width: 100%;
-  height: 30px;
+.ThemeColorButton .themeColorInner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ThemeColorButton .themeColorInner .themeColor {
+  width: 25px;
+  height: 25px;
   border: 1px solid white;
 }
-.ThemeColorButton .themeColor.orange {
+.ThemeColorButton .themeColorInner .themeColor.orange {
   background-color: var(--c-orange);
 }
-.ThemeColorButton .themeColor.red {
+.ThemeColorButton .themeColorInner .themeColor.red {
   background-color: var(--c-red);
 }
-.ThemeColorButton .themeColor.blue {
+.ThemeColorButton .themeColorInner .themeColor.blue {
   background-color: var(--c-blue);
 }
-.ThemeColorButton .themeColor.purple {
+.ThemeColorButton .themeColorInner .themeColor.purple {
   background-color: var(--c-purple);
 }
-.ThemeColorButton .themeColor.green {
+.ThemeColorButton .themeColorInner .themeColor.green {
   background-color: var(--c-green);
 }
-.ThemeColorButton .themeColor.cyan {
+.ThemeColorButton .themeColorInner .themeColor.cyan {
   background-color: var(--c-cyan);
 }
-.ThemeColorButton .themeColor.black {
+.ThemeColorButton .themeColorInner .themeColor.black {
   background-color: var(--c-black);
 }
 

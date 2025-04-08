@@ -1,29 +1,35 @@
 .ThemeColorButton {
-  .themeColor {
-    width: 100%;
-    height: 30px;
-    border: 1px solid white;
+  .themeColorInner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 
-    &.orange {
-      background-color: var(--c-orange);
-    }
-    &.red {
-      background-color: var(--c-red);
-    }
-    &.blue {
-      background-color: var(--c-blue);
-    }
-    &.purple {
-      background-color: var(--c-purple);
-    }
-    &.green {
-      background-color: var(--c-green);
-    }
-    &.cyan {
-      background-color: var(--c-cyan);
-    }
-    &.black {
-      background-color: var(--c-black);
+    .themeColor {
+      width: 25px;
+      height: 25px;
+      border: 1px solid white;
+
+      &.orange {
+        background-color: var(--c-orange);
+      }
+      &.red {
+        background-color: var(--c-red);
+      }
+      &.blue {
+        background-color: var(--c-blue);
+      }
+      &.purple {
+        background-color: var(--c-purple);
+      }
+      &.green {
+        background-color: var(--c-green);
+      }
+      &.cyan {
+        background-color: var(--c-cyan);
+      }
+      &.black {
+        background-color: var(--c-black);
+      }
     }
   }
 }

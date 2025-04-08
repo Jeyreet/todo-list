@@ -32,7 +32,7 @@
 
 .line {
   height: 1rem;
-  background-color: color-mix(in srgb, white 80%, black);
+  background-color: color-mix(in srgb, white 80%, var(--c-accent));
 }
 
 .container {
@@ -44,7 +44,7 @@
 
 .block {
   flex-grow: 1;
-  background-color: color-mix(in srgb, white 80%, black);
+  background-color: color-mix(in srgb, white 80%, var(--c-accent));
 }
 
 /*# sourceMappingURL=Skeleton.module.css.map */

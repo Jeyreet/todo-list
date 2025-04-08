@@ -2,6 +2,25 @@
 
 .themePicker {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 10px;
+}
+
+.marginTop {
+  margin-top: 50px !important;
+}
+
+.dataAreaInput {
+  height: 15rem !important;
+}
+
+.dataActions {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 15px;
+
+  > * {
+    flex-grow: 1;
+    max-width: 300px;
+  }
 }

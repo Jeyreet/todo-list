@@ -18,8 +18,9 @@ const AddTask = lazy(() => new Promise(resolve =>
 const Tasks = () => {
   const openModal = useGlobalStore(state => state.openModal)
   const setHeaderTitle = useGlobalStore(state => state.setHeaderTitle)
-  const tasks = useGlobalStore(state => state.tasks)
+  const tasks = useGlobalStore(state => state.tasks.value)
   const [prevTasks, setPrevTasks] = useState(tasks)
+  console.log(prevTasks)
 
   useEffect(() => {
     setHeaderTitle('Задачи')

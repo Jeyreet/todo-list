@@ -10,8 +10,10 @@ export const ThemeColorButton = ({code, name}) => {
 
   return (
     <Button onClick={() => updateThemeColor(code)} className={classes.ThemeColorButton}>
-      <div className={clsx(classes.themeColor, classes[code.toLowerCase()])}></div>
-      {name}
+      <div className={classes.themeColorInner}>
+        <div className={clsx(classes.themeColor, classes[code.toLowerCase()])}></div>
+        {name}
+      </div>
     </Button>
   )
 }

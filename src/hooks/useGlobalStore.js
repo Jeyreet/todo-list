@@ -10,20 +10,15 @@ const themeColors = {
   BLACK: '--c-black',
 }
 
-const lsInitials = {
-  themeColor: themeColors.ORANGE,
-  nextTaskId: 0,
-  tasks: []
+const setThemeColor = (color) => {
+  document.documentElement.style.setProperty('--c-accent', `var(${themeColors[color]})`)
 }
 
-const getLsValue = (key) => {
-  const value = JSON.parse(localStorage.getItem(key))
-  const initial = lsInitials[key]
-
+const getLsValue = (key, initial) => {
   try {
-    return value ?? initial
+    return JSON.parse(localStorage.getItem(key)) ?? initial
   }
-  catch {
+  catch (e) {
     return initial
   }
 }
@@ -65,55 +60,99 @@ export const useGlobalStore = useStore((set, get) => ({
     set({escapeHandlers: get().escapeHandlers.slice(0, -1)})
   },
 
-  themeColor: getLsValue('themeColor'),
-  setThemeColor: color => {
-    set({themeColor: color})
-    document.documentElement.style.setProperty('--c-accent', `var(${themeColors[color]})`)
+  themeColor: {
+    value: getLsValue('themeColor', 'ORANGE'),
+    initial: themeColors.ORANGE,
+    validator: data => data in themeColors ? data : false,
+    setter: color => {
+      set({themeColor: {...get().themeColor, value: color}})
+      setThemeColor(color)
+    }
   },
   updateThemeColor: color => {
-    get().setThemeColor(color)
+    get().themeColor.setter(color)
     setLsValue('themeColor', color)
   },
 
-  nextTaskId: getLsValue('nextTaskId'),
-  setNextTaskId: nextTaskId => set({nextTaskId: nextTaskId}),
+  nextTaskId: {
+    value: getLsValue('nextTaskId', 0),
+    initial: 0,
+    validator: data => isNaN(Number(data)) ? false : Number(data),
+    setter: nextTaskId => set({nextTaskId: {...get().nextTaskId, value: nextTaskId}})
+  },
   increaseNextTaskId: () => {
-    const nextTaskId = get().nextTaskId + 1
-    get().setNextTaskId(nextTaskId)
+    const nextTaskId = get().nextTaskId.value + 1
+    get().nextTaskId.setter(nextTaskId)
     setLsValue('nextTaskId', nextTaskId)
   },
 
-  tasks: getLsValue('tasks'),
-  setTasks: tasks => set({tasks: tasks}),
+  tasks: {
+    value: getLsValue('tasks', []),
+    initial: [],
+    validator: data => {
+      if (Array.isArray(data)) {
+        if (
+          data.filter(task =>
+            ['id', 'name', 'desc', 'start', 'end', 'done'].every(key =>
+              task.hasOwnProperty(key)
+            )
+          ).length === data.length
+        )
+          return data
+      }
+      return false
+    },
+    setter: tasks => set({tasks: {...get().tasks, value: tasks}})
+  },
   addTask: ({name, desc, start, end}) => {
-    const task = {name, desc, start, end, id: get().nextTaskId, done: false}
-    const tasks = [...get().tasks, task]
+    const task = {name, desc, start, end, id: get().nextTaskId.value, done: false}
+    const tasks = [...get().tasks.value, task]
 
-    get().setTasks(tasks)
+    get().tasks.setter(tasks)
     setLsValue('tasks', tasks)
     get().increaseNextTaskId()
   },
   toggleTask: taskId => {
-    const tasks = get().tasks.map(task =>
+    const tasks = get().tasks.value.map(task =>
       task.id === taskId ? { ...task, done: !task.done } : task
     )
 
-    get().setTasks(tasks)
+    get().tasks.setter(tasks)
     setLsValue('tasks', tasks)
   },
   removeTask: taskId => {
-    const tasks = get().tasks.filter(task => task.id !== taskId)
+    const tasks = get().tasks.value.filter(task => task.id !== taskId)
 
-    get().setTasks(tasks)
+    get().tasks.setter(tasks)
     setLsValue('tasks', tasks)
+  },
+
+  importStorage: data => {
+    data = JSON.parse(data)
+
+    for (const [key, value] of Object.entries(data)) {
+      const validation = get()?.[key]?.validator
+
+      if (validation !== false && validation !== undefined) {
+        get()[key].setter(value)
+        setLsValue(key, value)
+      }
+    }
+  },
+  exportStorage: () => {
+    return JSON.stringify({
+      themeColor: get().themeColor.value,
+      nextTaskId: get().nextTaskId.value,
+      tasks: get().tasks.value,
+    })
   }
 }))
-
-const gss = useGlobalStore.getState()
 
 const mediaQuery = window.matchMedia("(max-width: 1200px)")
 
 const handleResize = (e) => {
+  const gss = useGlobalStore.getState()
+
   if (e.matches) {
     gss.narrowScreen()
     gss.closeMenu()
@@ -123,22 +162,18 @@ const handleResize = (e) => {
 }
 
 const handleEscape = e => {
-  const {escapeHandlers} = useGlobalStore.getState()
+  const gss = useGlobalStore.getState()
 
-  if (e.key === 'Escape' && escapeHandlers.length)
+  if (e.key === 'Escape' && gss.escapeHandlers.length)
     gss.runAndSliceLastEscapeHandler()
 }
 
-const lsSetters = {
-  nextTaskId: gss.setNextTaskId,
-  tasks: gss.setTasks,
-  themeColor: gss.setThemeColor
-}
-
 const handleLocalStorage = e => {
-  if (Object.keys(lsSetters).includes(e.key))
+  const gss = useGlobalStore.getState()
+
+  if (Object.keys(gss).includes(e.key) && Object.keys(gss[e.key]).includes('setter'))
     try {
-      lsSetters[e.key](getLsValue(e.key))
+      gss[e.key].setter(getLsValue(e.key))
     } catch (e) {
       console.log(e)
     }
@@ -149,4 +184,4 @@ handleResize(mediaQuery)
 mediaQuery.addEventListener('change', handleResize)
 document.addEventListener('keydown', handleEscape)
 window.addEventListener('storage', handleLocalStorage)
-document.documentElement.style.setProperty('--c-accent', `var(${themeColors[getLsValue('themeColor')]})`)
+setThemeColor(getLsValue('themeColor'))

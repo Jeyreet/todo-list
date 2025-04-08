@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import classes from './AreaInput.module.css'
 import inputClasses from '../Input.module.css'
 
-export const AreaInput = ({name, control, rules, label, placeholder = '', autoFocus}) => {
+export const AreaInput = ({className, name, control, rules, label, placeholder = '', autoFocus}) => {
   const {
     field: {onChange, onBlur, value, ref},
     fieldState: { error }
@@ -25,7 +25,7 @@ export const AreaInput = ({name, control, rules, label, placeholder = '', autoFo
         </span>
       </div>
       <textarea
-        className={clsx(inputClasses.input, classes.textarea)}
+        className={clsx(inputClasses.input, classes.textarea, className)}
         onChange={onChange}
         onBlur={onBlur}
         value={value ?? ''}
