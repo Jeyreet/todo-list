@@ -19,6 +19,7 @@
   --c-purple: #653aa1;
   --c-green: #317523;
   --c-cyan: #00a19a;
+  --c-gray: #373737;
   --c-black: #000000;
   --c-accent: var(--c-orange);
   --fs-base: 16;
@@ -103,6 +104,12 @@ html {
 
 ::-webkit-scrollbar-thumb {
   background-color: var(--c-accent);
+}
+
+::-webkit-outer-spin-button,
+::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 /*# sourceMappingURL=index.css.map */

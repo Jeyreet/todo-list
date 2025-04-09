@@ -21,6 +21,7 @@ const Settings = () => {
     ['PURPLE', 'Фиолетовый'],
     ['GREEN', 'Зеленый'],
     ['CYAN', 'Бирюзовый'],
+    ['GRAY', 'Серый'],
     ['BLACK', 'Черный'],
   ]
 
@@ -44,12 +45,7 @@ const Settings = () => {
       navigator.clipboard.writeText(exportedStorage)
     }
     else if (e.nativeEvent.submitter.name === 'import') {
-      try {
-        importStorage(data.data)
-      }
-      catch (e) {
-        console.log(e)
-      }
+      importStorage(data.data)
     }
   }
 

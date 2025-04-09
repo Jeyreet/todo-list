@@ -1,36 +1,9 @@
 import { create as useStore } from 'zustand'
-
-const themeColors = {
-  ORANGE: '--c-orange',
-  RED: '--c-red',
-  BLUE: '--c-blue',
-  PURPLE: '--c-purple',
-  GREEN: '--c-green',
-  CYAN: '--c-cyan',
-  BLACK: '--c-black',
-}
-
-const setThemeColor = (color) => {
-  document.documentElement.style.setProperty('--c-accent', `var(${themeColors[color]})`)
-}
-
-const getLsValue = (key, initial) => {
-  try {
-    return JSON.parse(localStorage.getItem(key)) ?? initial
-  }
-  catch (e) {
-    return initial
-  }
-}
-
-const setLsValue = (key, value) => {
-  try {
-    localStorage.setItem(key, JSON.stringify(value))
-  }
-  catch (e) {
-    console.log(e)
-  }
-}
+import dayjs from 'dayjs'
+import {themeColors, setThemeColor} from '../utils/themeColors'
+import {createLsValue, getLsValue, setLsValue} from '../utils/lsValue'
+import {validate} from '../utils/validate'
+import {storageSamples} from '../utils/storageSamples'
 
 export const useGlobalStore = useStore((set, get) => ({
   isMenuOpen: false,
@@ -60,50 +33,21 @@ export const useGlobalStore = useStore((set, get) => ({
     set({escapeHandlers: get().escapeHandlers.slice(0, -1)})
   },
 
-  themeColor: {
-    value: getLsValue('themeColor', 'ORANGE'),
-    initial: themeColors.ORANGE,
-    validator: data => data in themeColors ? data : false,
-    setter: color => {
-      set({themeColor: {...get().themeColor, value: color}})
-      setThemeColor(color)
-    }
-  },
+  themeColor: createLsValue('themeColor', 'ORANGE', get, set, value => setThemeColor(value)),
   updateThemeColor: color => {
     get().themeColor.setter(color)
     setLsValue('themeColor', color)
   },
 
-  nextTaskId: {
-    value: getLsValue('nextTaskId', 0),
-    initial: 0,
-    validator: data => isNaN(Number(data)) ? false : Number(data),
-    setter: nextTaskId => set({nextTaskId: {...get().nextTaskId, value: nextTaskId}})
-  },
+  nextTaskId: createLsValue('nextTaskId', 0, get, set),
   increaseNextTaskId: () => {
     const nextTaskId = get().nextTaskId.value + 1
     get().nextTaskId.setter(nextTaskId)
     setLsValue('nextTaskId', nextTaskId)
   },
 
-  tasks: {
-    value: getLsValue('tasks', []),
-    initial: [],
-    validator: data => {
-      if (Array.isArray(data)) {
-        if (
-          data.filter(task =>
-            ['id', 'name', 'desc', 'start', 'end', 'done'].every(key =>
-              task.hasOwnProperty(key)
-            )
-          ).length === data.length
-        )
-          return data
-      }
-      return false
-    },
-    setter: tasks => set({tasks: {...get().tasks, value: tasks}})
-  },
+  tasks: createLsValue('tasks', [], get, set),
+  getTask: id => get().tasks.value.find(task => task.id === id),
   addTask: ({name, desc, start, end}) => {
     const task = {name, desc, start, end, id: get().nextTaskId.value, done: false}
     const tasks = [...get().tasks.value, task]
@@ -127,15 +71,74 @@ export const useGlobalStore = useStore((set, get) => ({
     setLsValue('tasks', tasks)
   },
 
+  nextWalletId: createLsValue('nextWalletId', 0, get, set),
+  increaseNextWalletId: () => {
+    const nextWalletId = get().nextWalletId.value + 1
+    get().nextWalletId.setter(nextWalletId)
+    setLsValue('nextWalletId', nextWalletId)
+  },
+
+  wallets: createLsValue('wallets', [], get, set),
+  getWallet: id => get().wallets.value.find(wallet => wallet.id === id),
+  addWallet: ({name, balance, main}) => {
+    const wallet = {name, balance, id: get().nextWalletId.value}
+    if (main) {
+      get().clearMainWallet()
+      wallet.main = true
+    }
+    const wallets = [...get().wallets.value, wallet]
+
+    get().increaseNextWalletId()
+
+    get().wallets.setter(wallets)
+    setLsValue('wallets', wallets)
+  },
+  modifyWallet: ({id, name, balance, main}) => {
+    const wallet = {id, name, balance}
+    if (main) {
+      get().clearMainWallet()
+      wallet.main = true
+    }
+    const wallets = [...get().wallets.value, wallet]
+
+    get().wallets.setter(wallets)
+    setLsValue('wallets', wallets)
+  },
+  removeWallet: walletId => {
+    const wallets = get().wallets.value.filter(wallet => wallet.id !== walletId)
+
+    get().wallets.setter(wallets)
+    setLsValue('wallets', wallets)
+  },
+  clearMainWallet: () => {
+    const wallets = get().wallets.value.map(wallet => {
+      const {main, ...rest} = wallet
+      return rest
+    })
+
+    get().wallets.setter(wallets)
+    setLsValue('wallets', wallets)
+  },
+
   importStorage: data => {
-    data = JSON.parse(data)
+    try { data = JSON.parse(data) }
+    catch (e) {
+      console.log('Wrong JSON format')
+      return
+    }
 
     for (const [key, value] of Object.entries(data)) {
-      const validation = get()?.[key]?.validator
+      const {sample, setter} = get()[key]
 
-      if (validation !== false && validation !== undefined) {
-        get()[key].setter(value)
-        setLsValue(key, value)
+      if (sample && setter) {
+        const validationErrors = validate(value, sample)
+
+        if (!validationErrors.length) {
+          setter(value)
+          setLsValue(key, value)
+        }
+        else
+          console.log(key, validationErrors)
       }
     }
   },
@@ -144,6 +147,8 @@ export const useGlobalStore = useStore((set, get) => ({
       themeColor: get().themeColor.value,
       nextTaskId: get().nextTaskId.value,
       tasks: get().tasks.value,
+      nextWalletId: get().nextWalletId.value,
+      wallets: get().wallets.value,
     })
   }
 }))

@@ -10,6 +10,9 @@
   position: fixed;
   inset: 0;
   background-color: var(--blackTransparentColor);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   transition: opacity .3s;
 
@@ -24,10 +27,7 @@
 }
 
 .inner {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  translate: -50% -50%;
+  scale: 1;
   width: var(--width);
   height: var(--height);
   max-width: min(var(--maxWidth, calc(100vw - 30px)), calc(100vw - 30px));

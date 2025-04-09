@@ -9,7 +9,7 @@ import { useGlobalStore } from '../../hooks/useGlobalStore'
 import classes from './Tasks.module.css'
 import {Transition, TransitionGroup} from "react-transition-group";
 
-// const AddTask = lazy(() => import('./AddTask/AddTask'))
+// const ModifyWallet = lazy(() => import('./ModifyWallet/ModifyWallet'))
 
 const AddTask = lazy(() => new Promise(resolve =>
   setTimeout(() => resolve(import('./AddTask/AddTask')), 1000)
@@ -20,7 +20,6 @@ const Tasks = () => {
   const setHeaderTitle = useGlobalStore(state => state.setHeaderTitle)
   const tasks = useGlobalStore(state => state.tasks.value)
   const [prevTasks, setPrevTasks] = useState(tasks)
-  console.log(prevTasks)
 
   useEffect(() => {
     setHeaderTitle('Задачи')

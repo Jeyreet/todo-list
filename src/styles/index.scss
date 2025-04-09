@@ -75,3 +75,8 @@ html {
 ::-webkit-scrollbar-thumb {
   background-color: var(--c-accent);
 }
+::-webkit-outer-spin-button,
+::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

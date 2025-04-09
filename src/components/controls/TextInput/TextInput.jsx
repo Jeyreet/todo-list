@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import inputClasses from '../Input.module.css'
 import classes from './TextInput.module.css'
 
-export const TextInput = ({name, control, rules, label, type = 'text', placeholder = '', autoFocus}) => {
+export const TextInput = ({name, control, rules, label, placeholder = '', autoFocus}) => {
   const {
     field: {onChange, onBlur, value, ref},
     fieldState: { error }
@@ -31,7 +31,7 @@ export const TextInput = ({name, control, rules, label, type = 'text', placehold
         value={value ?? ''}
         name={name}
         ref={ref}
-        type={type}
+        type="text"
         placeholder={placeholder}
         autoFocus={autoFocus}
       />

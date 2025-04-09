@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: stretch;
-  --secondaryColor: color-mix(in srgb, white 60%, black);
+  --secondaryColor: color-mix(in srgb, black 20%, white);
 }
 .Button.secondary .inner {
   background-color: var(--secondaryColor);

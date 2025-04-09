@@ -1,33 +1,37 @@
-.ThemeColorButton .themeColorInner {
+.ThemeColorButton .inner {
   display: flex;
   align-items: center;
   gap: 10px;
 }
-.ThemeColorButton .themeColorInner .themeColor {
-  width: 25px;
-  height: 25px;
+.ThemeColorButton .inner .color {
+  margin: -5px 0 -5px -5px;
+  width: 30px;
+  height: 30px;
   border: 1px solid white;
 }
-.ThemeColorButton .themeColorInner .themeColor.orange {
+.ThemeColorButton .inner .color.orange {
   background-color: var(--c-orange);
 }
-.ThemeColorButton .themeColorInner .themeColor.red {
+.ThemeColorButton .inner .color.red {
   background-color: var(--c-red);
 }
-.ThemeColorButton .themeColorInner .themeColor.blue {
+.ThemeColorButton .inner .color.blue {
   background-color: var(--c-blue);
 }
-.ThemeColorButton .themeColorInner .themeColor.purple {
+.ThemeColorButton .inner .color.purple {
   background-color: var(--c-purple);
 }
-.ThemeColorButton .themeColorInner .themeColor.green {
+.ThemeColorButton .inner .color.green {
   background-color: var(--c-green);
 }
-.ThemeColorButton .themeColorInner .themeColor.cyan {
+.ThemeColorButton .inner .color.cyan {
   background-color: var(--c-cyan);
 }
-.ThemeColorButton .themeColorInner .themeColor.black {
+.ThemeColorButton .inner .color.black {
   background-color: var(--c-black);
+}
+.ThemeColorButton .inner .name {
+  flex-grow: 1;
 }
 
 /*# sourceMappingURL=ThemeColorButton.module.css.map */

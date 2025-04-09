@@ -7,6 +7,7 @@ export const MenuLinkList = () => {
     {label: 'Главная', to: '/home', focus: true},
     {label: 'Задачи', to: '/tasks'},
     {label: 'Бюджет', to: '/budget'},
+    {label: 'Счета', to: '/wallets'},
     {label: 'Настройки', to: '/settings'},
   ]
 

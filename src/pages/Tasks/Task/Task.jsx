@@ -7,7 +7,7 @@ import clsx from 'clsx'
 import classes from './Task.module.css'
 import dayjs from 'dayjs'
 
-// const RemoveTask = lazy(() => import('../RemoveTask/RemoveTask'))
+// const RemoveWallet = lazy(() => import('../RemoveWallet/RemoveWallet'))
 
 const RemoveTask = lazy(() => new Promise(resolve =>
   setTimeout(() => resolve(import('../RemoveTask/RemoveTask')), 1000)
@@ -21,7 +21,7 @@ export const Task = ({id, name, desc, done, start, end}) => {
     await RemoveTask
     openModal({
       title: 'Удалить задачу',
-      body: <RemoveTask id={id} name={name} />,
+      body: <RemoveTask id={id} />,
       maxWidth: '400px'
     })
   }

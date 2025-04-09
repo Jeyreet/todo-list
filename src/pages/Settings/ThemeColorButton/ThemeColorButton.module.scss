@@ -1,12 +1,13 @@
 .ThemeColorButton {
-  .themeColorInner {
+  .inner {
     display: flex;
     align-items: center;
     gap: 10px;
 
-    .themeColor {
-      width: 25px;
-      height: 25px;
+    .color {
+      margin: -5px 0 -5px -5px;
+      width: 30px;
+      height: 30px;
       border: 1px solid white;
 
       &.orange {
@@ -30,6 +31,10 @@
       &.black {
         background-color: var(--c-black);
       }
+    }
+
+    .name {
+      flex-grow: 1;
     }
   }
 }

@@ -3,9 +3,11 @@ import { Button } from '../../../components/controls/Button/Button'
 import { useGlobalStore } from '../../../hooks/useGlobalStore'
 
 import modalClasses from '../../../components/App/Modal/Modal.module.css'
+import {useMemo} from "react";
 
-const RemoveTask = ({name, id}) => {
+const RemoveTask = ({id}) => {
   const removeTask = useGlobalStore(state => state.removeTask)
+  const name = useMemo(() => useGlobalStore.getState().getTask(id).name, [])
   const closeModal = useGlobalStore(state => state.closeModal)
   const isModalOpen = useGlobalStore(state => state.isModalOpen)
 
