@@ -10,6 +10,9 @@
       height: 30px;
       border: 1px solid white;
 
+      &.beige {
+        background-color: var(--c-beige);
+      }
       &.orange {
         background-color: var(--c-orange);
       }
@@ -27,6 +30,9 @@
       }
       &.cyan {
         background-color: var(--c-cyan);
+      }
+      &.gray {
+        background-color: var(--c-gray);
       }
       &.black {
         background-color: var(--c-black);

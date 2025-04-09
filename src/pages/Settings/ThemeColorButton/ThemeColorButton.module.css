@@ -9,6 +9,9 @@
   height: 30px;
   border: 1px solid white;
 }
+.ThemeColorButton .inner .color.beige {
+  background-color: var(--c-beige);
+}
 .ThemeColorButton .inner .color.orange {
   background-color: var(--c-orange);
 }
@@ -26,6 +29,9 @@
 }
 .ThemeColorButton .inner .color.cyan {
   background-color: var(--c-cyan);
+}
+.ThemeColorButton .inner .color.gray {
+  background-color: var(--c-gray);
 }
 .ThemeColorButton .inner .color.black {
   background-color: var(--c-black);

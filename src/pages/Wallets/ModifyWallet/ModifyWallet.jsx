@@ -34,7 +34,7 @@ const ModifyWallet = ({id}) => {
     modifyWallet({
       id,
       name,
-      balance: balance * 100,
+      balance,
       main
     })
     closeModal()

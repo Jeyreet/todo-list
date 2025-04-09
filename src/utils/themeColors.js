@@ -1,4 +1,5 @@
 export const themeColors = {
+  BEIGE: '--c-beige',
   ORANGE: '--c-orange',
   RED: '--c-red',
   BLUE: '--c-blue',

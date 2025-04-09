@@ -26,7 +26,7 @@ const AddWallet = () => {
   const handleAddWallet = ({name, balance, main}) => {
     addWallet({
       name,
-      balance: balance * 100,
+      balance,
       main
     })
     closeModal()

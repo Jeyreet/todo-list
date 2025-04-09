@@ -81,11 +81,19 @@ export const NumberInput = ({name, control, rules, label, autoFocus, precision =
   }
 
   const handleIntegerKeyDown = e => {
-    if (e.key === 'ArrowRight' && e.target.selectionStart === e.target.value.length)
+    if (
+      (e.key === 'Delete' || e.key === 'ArrowRight') &&
+      e.target.selectionStart === e.target.value.length &&
+      e.target.selectionEnd === e.target.value.length
+    ) {
+      if (e.key === 'Delete')
+        setFractionValue(prev => prev.slice(1))
+
       setTimeout(() => {
         fractionRef.current.focus()
         fractionRef.current.setSelectionRange(0, 0)
       }, 0)
+    }
   }
 
   const handleFractionKeyDown = e => {
@@ -106,7 +114,7 @@ export const NumberInput = ({name, control, rules, label, autoFocus, precision =
   }
 
   useEffect(() => {
-    onChange(Number(`${integerValue || '0'}.${fractionValue || 0}`))
+    onChange(Number(`${integerValue || ''}${fractionValue.padEnd(precision, '0')}`))
   }, [integerValue, fractionValue])
 
   return (

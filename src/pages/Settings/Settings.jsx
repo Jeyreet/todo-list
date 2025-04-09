@@ -15,6 +15,7 @@ const Settings = () => {
   const exportStorage = useGlobalStore(state => state.exportStorage)
 
   const themeColors = [
+    ['BEIGE', 'Бежевый'],
     ['ORANGE', 'Оранжевый'],
     ['RED', 'Красный'],
     ['BLUE', 'Синий'],

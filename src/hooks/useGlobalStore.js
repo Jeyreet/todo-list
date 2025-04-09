@@ -95,6 +95,7 @@ export const useGlobalStore = useStore((set, get) => ({
   },
   modifyWallet: ({id, name, balance, main}) => {
     const wallet = {id, name, balance}
+    get().removeWallet(id)
     if (main) {
       get().clearMainWallet()
       wallet.main = true

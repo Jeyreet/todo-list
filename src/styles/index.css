@@ -13,6 +13,7 @@
   font-display: swap;
 }
 :root {
+  --c-beige: #dbb98b;
   --c-orange: #f1633d;
   --c-red: #b31a1a;
   --c-blue: #1b61bf;
@@ -21,7 +22,7 @@
   --c-cyan: #00a19a;
   --c-gray: #373737;
   --c-black: #000000;
-  --c-accent: var(--c-orange);
+  --c-accent: var(--c-beige);
   --fs-base: 16;
   --fc-base: black;
   --ff-base: "Exo 2";
