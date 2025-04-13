@@ -29,32 +29,16 @@ const ModifyTask = ({id}) => {
     setValue
   } = useForm({
     mode: 'onChange',
-    defaultValues: {
-      name,
-      desc,
-      start,
-      end,
-    }
+    defaultValues: {name, desc, start, end}
   })
 
-  const handleModifyTask = ({name, desc, start, end}) => {
-    modifyTask({
-      id,
-      name,
-      desc,
-      start,
-      end,
-    })
+  const handleModifyTask = (taskData) => {
+    modifyTask(id, taskData)
     closeModal()
   }
 
   const _start = watch('start')
   const _end = watch('end')
-
-  useEffect(() => {
-    if (dayjs(_end).isBefore(_start))
-      setValue('end', _start)
-  }, [_start])
 
   return (
     <>
@@ -75,6 +59,12 @@ const ModifyTask = ({id}) => {
           <DateInput
             name="start"
             label="Начало"
+            rules={{
+              validate: start => {
+                if (dayjs(_end).isBefore(start)) setValue('end', start)
+                return true
+              }
+            }}
             control={control}
           />
           <DateInput
@@ -82,7 +72,6 @@ const ModifyTask = ({id}) => {
             label="Конец"
             rules={{
               validate: end => {
-                if (!end) return true
                 return dayjs(end).isSameOrAfter(_start) || 'не может быть раньше начала'
               }
             }}

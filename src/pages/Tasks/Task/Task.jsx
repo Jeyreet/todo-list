@@ -20,7 +20,7 @@ const RemoveTask = lazy(() => new Promise(resolve =>
 ))
 
 export const Task = ({id, name, desc, done, start, end}) => {
-  const toggleTask = useGlobalStore(state => state.toggleTask)
+  const modifyTask = useGlobalStore(state => state.modifyTask)
   const openModal = useGlobalStore(state => state.openModal)
 
   const openModifyTask = async () => {
@@ -41,6 +41,10 @@ export const Task = ({id, name, desc, done, start, end}) => {
     })
   }
 
+  const toggleTask = () => {
+    modifyTask(id, {done: !done})
+  }
+
   return (
     <div className={clsx(classes.Task, done && classes.done)}>
       <div className={classes.info}>
@@ -49,7 +53,7 @@ export const Task = ({id, name, desc, done, start, end}) => {
         <p>Выполнить с {dayjs(start).format('DD.MM.YYYY')} по {dayjs(end).format('DD.MM.YYYY')}</p>
       </div>
       <div className={classes.actions}>
-        <Button onClick={() => toggleTask(id)}>{done ? 'Возобновить' : 'Завершить'}</Button>
+        <Button onClick={toggleTask}>{done ? 'Возобновить' : 'Завершить'}</Button>
         <Button onClick={openModifyTask}>
           <PenIcon className="icon icon--button" />
         </Button>

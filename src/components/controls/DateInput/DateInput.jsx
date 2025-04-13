@@ -5,6 +5,7 @@ import {useController} from "react-hook-form";
 import {DateInputProvider} from './DateInputContext'
 import {ErrorGroup} from './ErrorGroup/ErrorGroup'
 import dayjs from 'dayjs'
+import {useEffect} from "react";
 
 export const DateInput = ({name, control, rules, label, autoFocus}) => {
   const {
@@ -14,7 +15,6 @@ export const DateInput = ({name, control, rules, label, autoFocus}) => {
     name,
     control,
     rules,
-    defaultValue: dayjs().format('YYYY-MM-DD'),
   })
 
   return (

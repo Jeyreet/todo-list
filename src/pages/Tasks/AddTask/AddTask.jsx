@@ -29,7 +29,8 @@ const AddTask = () => {
   } = useForm({
     mode: 'onChange',
     defaultValues: {
-      name: ''
+      start: dayjs().format('YYYY-MM-DD'),
+      end: dayjs().format('YYYY-MM-DD'),
     }
   })
 
@@ -40,11 +41,6 @@ const AddTask = () => {
 
   const start = watch('start')
   const end = watch('end')
-
-  useEffect(() => {
-    if (dayjs(end).isBefore(start))
-      setValue('end', start)
-  }, [start])
 
   return (
     <>
@@ -65,6 +61,12 @@ const AddTask = () => {
           <DateInput
             name="start"
             label="Начало"
+            rules={{
+              validate: start => {
+                if (dayjs(end).isBefore(start)) setValue('end', start)
+                return true
+              }
+            }}
             control={control}
           />
           <DateInput
@@ -72,7 +74,6 @@ const AddTask = () => {
             label="Конец"
             rules={{
               validate: end => {
-                if (!end) return true
                 return dayjs(end).isSameOrAfter(start) || 'не может быть раньше начала'
               }
             }}

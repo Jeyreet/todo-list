@@ -56,18 +56,10 @@ export const useGlobalStore = useStore((set, get) => ({
     setLsValue('tasks', tasks)
     get().increaseNextTaskId()
   },
-  toggleTask: taskId => {
-    const tasks = get().tasks.value.map(task =>
-      task.id === taskId ? { ...task, done: !task.done } : task
-    )
-
-    get().tasks.setter(tasks)
-    setLsValue('tasks', tasks)
-  },
-  modifyTask: ({id, name, desc, start, end}) => {
+  modifyTask: (taskId, taskData) => {
     const tasks = get().tasks.value.map(task => {
-      if (task.id === id)
-        return { ...task, name, desc, start, end }
+      if (task.id === taskId)
+        return { ...task, ...taskData }
       else
         return task
     })
@@ -104,11 +96,11 @@ export const useGlobalStore = useStore((set, get) => ({
     get().wallets.setter(wallets)
     setLsValue('wallets', wallets)
   },
-  modifyWallet: ({id, name, balance, main}) => {
+  modifyWallet: (walletId, walletData) => {
     const wallets = get().wallets.value.map(wallet => {
-      if (wallet.id === id)
-        return { ...wallet, name, balance, main: !!main }
-      else if (main)
+      if (wallet.id === walletId)
+        return { ...wallet, ...walletData }
+      else if (walletData.main)
         return { ...wallet, main: false }
       else
         return wallet

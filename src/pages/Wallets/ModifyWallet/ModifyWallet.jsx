@@ -30,13 +30,8 @@ const ModifyWallet = ({id}) => {
     }
   })
 
-  const handleModifyWallet = ({name, balance, main}) => {
-    modifyWallet({
-      id,
-      name,
-      balance,
-      main
-    })
+  const handleModifyWallet = (walletData) => {
+    modifyWallet(id, walletData)
     closeModal()
   }
 
