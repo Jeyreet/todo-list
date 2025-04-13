@@ -53,6 +53,16 @@ form, ul, li {
   display: contents;
 }
 
+.icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+  fill: white;
+}
+.icon--button {
+  margin: -3px;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;

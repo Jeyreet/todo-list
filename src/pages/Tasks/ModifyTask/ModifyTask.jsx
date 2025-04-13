@@ -7,42 +7,58 @@ import { useForm } from 'react-hook-form'
 import { useGlobalStore } from '../../../hooks/useGlobalStore'
 
 import modalClasses from '../../../components/App/Modal/Modal.module.css'
-import {NumberInput} from "../../../components/controls/NumberInput/NumberInput.jsx";
-import {Switch} from "../../../components/controls/Switch/Switch.jsx";
-import {useMemo} from "react";
+import {useEffect, useMemo} from "react";
+import dayjs from "dayjs";
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 
-const ModifyWallet = ({id}) => {
+dayjs.extend(isSameOrBefore)
+dayjs.extend(isSameOrAfter)
+
+const ModifyTask = ({id}) => {
   const isModalOpen = useGlobalStore(state => state.isModalOpen)
   const closeModal = useGlobalStore(state => state.closeModal)
-  const modifyWallet = useGlobalStore(state => state.modifyWallet)
-  const {name, balance, main} = useMemo(() => useGlobalStore.getState().getWallet(id), [])
+  const modifyTask = useGlobalStore(state => state.modifyTask)
+  const {name, desc, start, end} = useMemo(() => useGlobalStore.getState().getTask(id), [])
 
   const {
     control,
     formState: { isValid },
     handleSubmit,
+    watch,
+    setValue
   } = useForm({
     mode: 'onChange',
     defaultValues: {
       name,
-      balance,
-      main
+      desc,
+      start,
+      end,
     }
   })
 
-  const handleModifyWallet = ({name, balance, main}) => {
-    modifyWallet({
+  const handleModifyTask = ({name, desc, start, end}) => {
+    modifyTask({
       id,
       name,
-      balance,
-      main
+      desc,
+      start,
+      end,
     })
     closeModal()
   }
 
+  const _start = watch('start')
+  const _end = watch('end')
+
+  useEffect(() => {
+    if (dayjs(_end).isBefore(_start))
+      setValue('end', _start)
+  }, [_start])
+
   return (
     <>
-      <form onSubmit={handleSubmit(handleModifyWallet)}>
+      <form onSubmit={handleSubmit(handleModifyTask)}>
         <div className={modalClasses.scroller}>
           <TextInput
             name="name"
@@ -51,15 +67,25 @@ const ModifyWallet = ({id}) => {
             autoFocus={isModalOpen}
             control={control}
           />
-          <NumberInput
-            name="balance"
-            label="Баланс"
-            precision={2}
+          <AreaInput
+            name="desc"
+            label="Описание"
             control={control}
           />
-          <Switch
-            name="main"
-            label="Сделать основным"
+          <DateInput
+            name="start"
+            label="Начало"
+            control={control}
+          />
+          <DateInput
+            name="end"
+            label="Конец"
+            rules={{
+              validate: end => {
+                if (!end) return true
+                return dayjs(end).isSameOrAfter(_start) || 'не может быть раньше начала'
+              }
+            }}
             control={control}
           />
         </div>
@@ -72,4 +98,4 @@ const ModifyWallet = ({id}) => {
   )
 }
 
-export default ModifyWallet
+export default ModifyTask

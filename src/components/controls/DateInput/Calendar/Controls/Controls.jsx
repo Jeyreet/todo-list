@@ -1,4 +1,7 @@
 import { Button } from '../../../Button/Button'
+import ChevronLeftIcon from '../../../../../assets/icons/chevron_left.svg'
+import ChevronRightIcon from '../../../../../assets/icons/chevron_right.svg'
+import ArrowRoundIcon from '../../../../../assets/icons/arrow_round.svg'
 
 import { useMemo } from 'react'
 import { useDateInput } from '../../DateInputContext.jsx'
@@ -10,7 +13,6 @@ export const Controls = () => {
   const {
     value,
     onChange,
-    close
   } = useDateInput()
 
   const month = useMemo(() => dayjs(value).get('month'), [value])
@@ -41,11 +43,16 @@ export const Controls = () => {
 
   return (
     <div className={classes.Controls}>
-      <Button onClick={decreaseMonth} tabIndex="-1">{"<"}</Button>
+      <Button onClick={decreaseMonth} tabIndex="-1">
+        <ChevronLeftIcon className="icon icon--button" />
+      </Button>
       <div className={classes.text}>{months[month]} {year} г.</div>
-      <Button onClick={increaseMonth} tabIndex="-1">{">"}</Button>
-      <Button onClick={clear} tabIndex="-1">Сбр</Button>
-      <Button onClick={close} tabIndex="-1">Ок</Button>
+      <Button onClick={increaseMonth} tabIndex="-1">
+        <ChevronRightIcon className="icon icon--button" />
+      </Button>
+      <Button onClick={clear} tabIndex="-1">
+        <ArrowRoundIcon className="icon icon--button" />
+      </Button>
     </div>
   )
 }

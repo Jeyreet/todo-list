@@ -8,6 +8,7 @@ import { useGlobalStore } from '../../hooks/useGlobalStore'
 
 import classes from './Wallets.module.css'
 import {Transition, TransitionGroup} from "react-transition-group";
+import PlusIcon from "../../assets/icons/plus.svg";
 
 // const ModifyWallet = lazy(() => import('./ModifyWallet/ModifyWallet'))
 
@@ -77,7 +78,7 @@ const Tasks = () => {
         className={classes.addWalletButton}
         onClick={openAddWallet}
       >
-        Добавить счет
+        <PlusIcon className="icon icon--button" />
       </Button>
     </>
   )

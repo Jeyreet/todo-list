@@ -7,6 +7,13 @@ import { useForm } from 'react-hook-form'
 import { useGlobalStore } from '../../../hooks/useGlobalStore'
 
 import modalClasses from '../../../components/App/Modal/Modal.module.css'
+import {useEffect} from "react";
+import dayjs from "dayjs";
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
+
+dayjs.extend(isSameOrBefore)
+dayjs.extend(isSameOrAfter)
 
 const AddTask = () => {
   const isModalOpen = useGlobalStore(state => state.isModalOpen)
@@ -17,6 +24,8 @@ const AddTask = () => {
     control,
     formState: { isValid },
     handleSubmit,
+    watch,
+    setValue,
   } = useForm({
     mode: 'onChange',
     defaultValues: {
@@ -28,6 +37,14 @@ const AddTask = () => {
     closeModal()
     addTask(data)
   }
+
+  const start = watch('start')
+  const end = watch('end')
+
+  useEffect(() => {
+    if (dayjs(end).isBefore(start))
+      setValue('end', start)
+  }, [start])
 
   return (
     <>
@@ -53,6 +70,12 @@ const AddTask = () => {
           <DateInput
             name="end"
             label="Конец"
+            rules={{
+              validate: end => {
+                if (!end) return true
+                return dayjs(end).isSameOrAfter(start) || 'не может быть раньше начала'
+              }
+            }}
             control={control}
           />
         </div>

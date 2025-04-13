@@ -64,6 +64,17 @@ export const useGlobalStore = useStore((set, get) => ({
     get().tasks.setter(tasks)
     setLsValue('tasks', tasks)
   },
+  modifyTask: ({id, name, desc, start, end}) => {
+    const tasks = get().tasks.value.map(task => {
+      if (task.id === id)
+        return { ...task, name, desc, start, end }
+      else
+        return task
+    })
+
+    get().tasks.setter(tasks)
+    setLsValue('tasks', tasks)
+  },
   removeTask: taskId => {
     const tasks = get().tasks.value.filter(task => task.id !== taskId)
 
@@ -94,13 +105,14 @@ export const useGlobalStore = useStore((set, get) => ({
     setLsValue('wallets', wallets)
   },
   modifyWallet: ({id, name, balance, main}) => {
-    const wallet = {id, name, balance}
-    get().removeWallet(id)
-    if (main) {
-      get().clearMainWallet()
-      wallet.main = true
-    }
-    const wallets = [...get().wallets.value, wallet]
+    const wallets = get().wallets.value.map(wallet => {
+      if (wallet.id === id)
+        return { ...wallet, name, balance, main: !!main }
+      else if (main)
+        return { ...wallet, main: false }
+      else
+        return wallet
+    })
 
     get().wallets.setter(wallets)
     setLsValue('wallets', wallets)
@@ -177,9 +189,9 @@ const handleEscape = e => {
 const handleLocalStorage = e => {
   const gss = useGlobalStore.getState()
 
-  if (Object.keys(gss).includes(e.key) && Object.keys(gss[e.key]).includes('setter'))
+  if (gss?.[e.key]?.setter)
     try {
-      gss[e.key].setter(getLsValue(e.key))
+      gss[e.key].setter(getLsValue(e.key, storageSamples[e.key], gss[e.key].initial))
     } catch (e) {
       console.log(e)
     }

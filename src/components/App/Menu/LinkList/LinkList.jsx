@@ -1,8 +1,8 @@
-import { MenuLink } from '../MenuLink/MenuLink'
+import { Link } from '../Link/Link.jsx'
 
-import classes from './MenuLinkList.module.css'
+import classes from './LinkList.module.css'
 
-export const MenuLinkList = () => {
+export const LinkList = () => {
   const links = [
     {label: 'Главная', to: '/home', focus: true},
     {label: 'Задачи', to: '/tasks'},
@@ -16,7 +16,7 @@ export const MenuLinkList = () => {
       <ul>
         {links.map((link) => (
           <li key={link.to}>
-            <MenuLink to={link.to} autoFocus={link.focus}>{link.label}</MenuLink>
+            <Link to={link.to} autoFocus={link.focus}>{link.label}</Link>
           </li>
         ))}
       </ul>

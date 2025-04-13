@@ -1,6 +1,6 @@
-import { MenuHeader } from './MenuHeader/MenuHeader'
+import { Header } from './Header/Header.jsx'
 import { Hr } from '../../Hr/Hr'
-import { MenuLinkList } from './MenuLinkList/MenuLinkList'
+import { LinkList } from './LinkList/LinkList.jsx'
 
 import { useGlobalStore } from '../../../hooks/useGlobalStore.js'
 import { useEscape } from '../../../hooks/useEscape.js'
@@ -25,9 +25,9 @@ export const Menu = () => {
         className={classes.inner}
         onClick={e => e.stopPropagation()}
       >
-        <MenuHeader />
+        <Header />
         <Hr />
-        <MenuLinkList />
+        <LinkList />
       </div>
     </div>
   )

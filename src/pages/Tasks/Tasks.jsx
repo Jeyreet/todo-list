@@ -2,6 +2,7 @@ import { Button } from '../../components/controls/Button/Button'
 import { Task } from './Task/Task'
 import { Title } from '../../components/Title/Title'
 import { Collapser } from '../../components/Collapser/Collapser'
+import PlusIcon from '../../assets/icons/plus.svg'
 
 import {createRef, lazy, useEffect, useRef, useState} from 'react'
 import { useGlobalStore } from '../../hooks/useGlobalStore'
@@ -79,7 +80,7 @@ const Tasks = () => {
         className={classes.addTaskButton}
         onClick={openAddTask}
       >
-        Добавить задачу
+        <PlusIcon className="icon icon--button" />
       </Button>
     </>
   )

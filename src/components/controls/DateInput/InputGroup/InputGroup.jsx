@@ -1,4 +1,5 @@
 import { Button } from '../../Button/Button'
+import CalendarIcon from '../../../../assets/icons/calendar.svg'
 
 import {useDateInput} from '../DateInputContext.jsx'
 
@@ -35,7 +36,7 @@ export const InputGroup = () => {
         onClick={toggle}
         tabIndex="-1"
       >
-        К
+        <CalendarIcon className="icon icon--button" />
       </Button>
     </div>
   )

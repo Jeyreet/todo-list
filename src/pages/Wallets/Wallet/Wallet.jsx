@@ -1,4 +1,6 @@
 import { Button } from '../../../components/controls/Button/Button'
+import PenIcon from '../../../assets/icons/pen.svg'
+import TrashcanIcon from '../../../assets/icons/trashcan.svg'
 
 import { lazy } from 'react'
 import { useGlobalStore } from '../../../hooks/useGlobalStore'
@@ -8,7 +10,7 @@ import classes from './Wallet.module.css'
 import dayjs from 'dayjs'
 
 // const ModifyWallet = lazy(() => import('../ModifyWallet/ModifyWallet'))
-//const RemoveWallet = lazy(() => import('../RemoveWallet/RemoveWallet'))
+// const RemoveWallet = lazy(() => import('../RemoveWallet/RemoveWallet'))
 
 const ModifyWallet = lazy(() => new Promise(resolve =>
   setTimeout(() => resolve(import('../ModifyWallet/ModifyWallet')), 1000)
@@ -24,7 +26,7 @@ export const Wallet = ({id, name, balance, main}) => {
   const openModifyWallet = async () => {
     await ModifyWallet
     openModal({
-      title: 'Изменить',
+      title: 'Изменить счет',
       body: <ModifyWallet id={id} />,
       width: '350px'
     })
@@ -33,7 +35,7 @@ export const Wallet = ({id, name, balance, main}) => {
   const openRemoveWallet = async () => {
     await RemoveWallet
     openModal({
-      title: 'Удалить',
+      title: 'Подтверждение',
       body: <RemoveWallet id={id} />,
       maxWidth: '400px'
     })
@@ -52,8 +54,12 @@ export const Wallet = ({id, name, balance, main}) => {
         {main && <p>Основной</p>}
       </div>
       <div className={classes.actions}>
-        <Button onClick={openModifyWallet}>Изменить</Button>
-        <Button onClick={openRemoveWallet}>Удалить</Button>
+        <Button onClick={openModifyWallet}>
+          <PenIcon className="icon icon--button" />
+        </Button>
+        <Button onClick={openRemoveWallet}>
+          <TrashcanIcon className="icon icon--button" />
+        </Button>
       </div>
     </div>
   )

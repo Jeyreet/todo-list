@@ -1,4 +1,5 @@
 import { Button } from '../../../controls/Button/Button.jsx'
+import BurgerIcon from '../../../../assets/icons/burger.svg'
 
 import { useGlobalStore } from '../../../../hooks/useGlobalStore.js'
 import { useEscape } from '../../../../hooks/useEscape.js'
@@ -14,7 +15,9 @@ export const Header = () => {
 
   return (
     <div className={classes.Header}>
-      <Button className={classes.button} onClick={openMenu}>Меню</Button>
+      <Button className={classes.button} onClick={openMenu}>
+        <BurgerIcon className="icon icon--button" />
+      </Button>
       <h2 className={classes.title}>{headerTitle}</h2>
     </div>
   )
