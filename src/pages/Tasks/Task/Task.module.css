@@ -23,6 +23,9 @@
   display: flex;
   gap: 15px;
 }
+.Task .actions .toggleButton {
+  width: 120px;
+}
 @media (max-width: 768px) {
   .Task {
     flex-direction: column;

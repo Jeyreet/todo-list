@@ -74,12 +74,11 @@ const Tasks = () => {
       {!prevWallets.length && (
         <Title>Счетов не найдено</Title>
       )}
-      <Button
-        className={classes.addWalletButton}
-        onClick={openAddWallet}
-      >
-        <PlusIcon className="icon icon--button" />
-      </Button>
+      <div className={classes.addWalletButton}>
+        <Button onClick={openAddWallet}>
+          <PlusIcon className="icon icon--button" />
+        </Button>
+      </div>
     </>
   )
 }

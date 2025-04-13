@@ -53,7 +53,7 @@ export const Task = ({id, name, desc, done, start, end}) => {
         <p>Выполнить с {dayjs(start).format('DD.MM.YYYY')} по {dayjs(end).format('DD.MM.YYYY')}</p>
       </div>
       <div className={classes.actions}>
-        <Button onClick={toggleTask}>{done ? 'Возобновить' : 'Завершить'}</Button>
+        <Button className={classes.toggleButton} onClick={toggleTask}>{done ? 'Возобновить' : 'Завершить'}</Button>
         <Button onClick={openModifyTask}>
           <PenIcon className="icon icon--button" />
         </Button>

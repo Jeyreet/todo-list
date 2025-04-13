@@ -35,6 +35,20 @@
     }
   }
 
+  &.option {
+    .content {
+      text-align: left;
+    }
+  }
+
+  @include mixins.not-hover {
+    &.option {
+      .content {
+        text-align: center;
+      }
+    }
+  }
+
   &:focus-visible {
     .inner {
       outline: 2px solid var(--c-accent);
@@ -61,18 +75,24 @@
       cursor: progress;
     }
   }
-}
 
-.inner {
-  position: relative;
-  flex-grow: 1;
-  padding: 10px;
-  background-color: var(--c-accent);
-  color: white;
-  transition: translate .2s, background-color .2s, box-shadow .2s;
-  cursor: pointer;
-}
+  &:not(.option) {
+    .inner {
+      background-color: var(--c-accent);
+      color: white;
+    }
+  }
 
-.content {
-  transition: opacity .2s;
+  .inner {
+    position: relative;
+    flex-grow: 1;
+    padding: 10px;
+    transition: translate .2s, background-color .2s, box-shadow .2s;
+    cursor: pointer;
+  }
+
+  .content {
+    text-align: center;
+    transition: opacity .2s;
+  }
 }

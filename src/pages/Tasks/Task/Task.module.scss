@@ -28,6 +28,10 @@
   .actions {
     display: flex;
     gap: 15px;
+
+    .toggleButton {
+      width: 120px;
+    }
   }
 
   @include mixins.width(768px) {

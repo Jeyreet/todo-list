@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["Task.module.scss","../../../styles/_mixins.scss"],"names":[],"mappings":"AAEA;EACE;EACA;EACA;EACA;EACA;EACA;EAEA;;AAEA;EACE;;AAGF;EACE;EACA;EACA;EACA;;AAEA;EACE;;AAIJ;EACE;EACA;;ACjBF;EDVF;IA+BI","file":"Task.module.css"}
+{"version":3,"sourceRoot":"","sources":["Task.module.scss","../../../styles/_mixins.scss"],"names":[],"mappings":"AAEA;EACE;EACA;EACA;EACA;EACA;EACA;EAEA;;AAEA;EACE;;AAGF;EACE;EACA;EACA;EACA;;AAEA;EACE;;AAIJ;EACE;EACA;;AAEA;EACE;;ACpBJ;EDVF;IAmCI","file":"Task.module.css"}

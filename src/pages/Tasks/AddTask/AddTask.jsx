@@ -22,7 +22,7 @@ const AddTask = () => {
 
   const {
     control,
-    formState: { isValid },
+    formState: { isValid, errors },
     handleSubmit,
     watch,
     setValue,
@@ -41,6 +41,10 @@ const AddTask = () => {
 
   const start = watch('start')
   const end = watch('end')
+
+  useEffect(() => {
+    if (dayjs(end).isBefore(start)) setValue('end', start)
+  }, [start])
 
   return (
     <>
@@ -61,12 +65,6 @@ const AddTask = () => {
           <DateInput
             name="start"
             label="Начало"
-            rules={{
-              validate: start => {
-                if (dayjs(end).isBefore(start)) setValue('end', start)
-                return true
-              }
-            }}
             control={control}
           />
           <DateInput

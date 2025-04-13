@@ -40,6 +40,10 @@ const ModifyTask = ({id}) => {
   const _start = watch('start')
   const _end = watch('end')
 
+  useEffect(() => {
+    if (dayjs(_end).isBefore(_start)) setValue('end', _start)
+  }, [_start])
+
   return (
     <>
       <form onSubmit={handleSubmit(handleModifyTask)}>
@@ -59,12 +63,6 @@ const ModifyTask = ({id}) => {
           <DateInput
             name="start"
             label="Начало"
-            rules={{
-              validate: start => {
-                if (dayjs(_end).isBefore(start)) setValue('end', start)
-                return true
-              }
-            }}
             control={control}
           />
           <DateInput

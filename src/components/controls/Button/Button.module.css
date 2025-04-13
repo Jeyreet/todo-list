@@ -20,6 +20,14 @@
   translate: 0 3px;
   box-shadow: none;
 }
+.Button.option .content {
+  text-align: left;
+}
+@media (hover: none) {
+  .Button.option .content {
+    text-align: center;
+  }
+}
 .Button:focus-visible .inner {
   outline: 2px solid var(--c-accent);
   outline-offset: 2px;
@@ -35,18 +43,19 @@
   background-color: color-mix(in srgb, var(--c-accent), black);
   cursor: progress;
 }
-
-.inner {
+.Button:not(.option) .inner {
+  background-color: var(--c-accent);
+  color: white;
+}
+.Button .inner {
   position: relative;
   flex-grow: 1;
   padding: 10px;
-  background-color: var(--c-accent);
-  color: white;
   transition: translate 0.2s, background-color 0.2s, box-shadow 0.2s;
   cursor: pointer;
 }
-
-.content {
+.Button .content {
+  text-align: center;
   transition: opacity 0.2s;
 }
 
