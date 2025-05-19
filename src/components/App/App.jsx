@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { HashRouter } from 'react-router-dom'
 
 import { useLS } from '../../stores/useLS'
@@ -9,21 +9,22 @@ import { Portal as FixedPortal } from './FixedPortal/Portal'
 import { Menu } from './Menu'
 import { Portal as PopupPortal } from './PopupPortal/Portal'
 
+const themeQuery = window.matchMedia('(prefers-color-scheme: dark)')
+
 export const App = () => {
   const theme = useLS(state => state.theme)
   const themeMainColor = useLS(state => state.themeMainColor)
   const borderRadius = useLS(state => state.borderRadius)
   const gap = useLS(state => state.gap)
 
-  const [isSystemDark, setIsSystemDark] = useState(null)
+  const [isSystemDark, setIsSystemDark] = useState(themeQuery.matches)
   const [isDark, setIsDark] = useState(null)
   const [isSwitchingTheme, setIsSwitchingTheme] = useState(false)
   const themeSwitchTimeout = useRef(null)
+  const hasMounted = useRef(false)
 
-  useEffect(() => {
-    const themeQuery = window.matchMedia('(prefers-color-scheme: dark)')
+  useLayoutEffect(() => {
     const appRenderedQuery = new CustomEvent('app_rendered')
-
     window.dispatchEvent(appRenderedQuery)
 
     if (themeQuery.matches) setIsSystemDark(true)
@@ -43,13 +44,14 @@ export const App = () => {
 
       if (prevIsDark !== newIsDark) {
         clearTimeout(themeSwitchTimeout.current)
-        setIsSwitchingTheme(true)
+        if (hasMounted.current) setIsSwitchingTheme(true)
         themeSwitchTimeout.current = setTimeout(
           () => setIsSwitchingTheme(false),
           500
         )
       }
 
+      hasMounted.current = true
       return newIsDark
     })
   }, [isSystemDark, theme])
