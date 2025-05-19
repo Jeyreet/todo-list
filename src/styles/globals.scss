@@ -1,0 +1,75 @@
+@use 'mixins';
+
+html, body {
+  width: 100vw;
+  height: 100svh;
+}
+
+body {
+  overscroll-behavior-y: contain;
+}
+
+#root, #fixed-ui, #popup-ui {
+  inset: 0;
+}
+
+#root, #popup-ui {
+  position: fixed;
+}
+
+#fixed-ui {
+  position: absolute;
+}
+
+#root {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#fixed-ui, #popup-ui {
+  pointer-events: none;
+
+  & > * {
+    pointer-events: all;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(100%);
+  padding: 0;
+  overflow: hidden; 
+
+  white-space: nowrap;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+form {
+  display: contents;
+}
+
+button, input, select, textarea, svg {
+  display: block;
+}
+
+input::placeholder, textarea::placeholder {
+  font-style: italic;
+}
+
+svg * {
+  transition-property: fill, stroke;
+}
+
+p {
+  min-width: 0;
+}

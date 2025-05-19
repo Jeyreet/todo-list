@@ -1,0 +1,24 @@
+@use '../../../styles/mixins';
+
+.PageTools {
+  position: absolute;
+  right: calc(var(--gap) * 2);
+  bottom: calc(var(--gap) * 2);
+  box-shadow: var(--bs);
+  border-radius: calc(var(--brr) * 2);
+  background-color: var(--lbg);
+  padding: var(--gap);
+  gap: var(--gap);
+
+  &[data-unmounted] {
+    animation: closing .3s forwards;
+
+    @keyframes closing { to { transform: translateY(calc(100% + var(--gap) * 3)) } }
+  }
+
+  &[data-mounted] {
+    animation: opening .3s forwards;
+
+    @keyframes opening { from { transform: translateY(calc(100% + var(--gap) * 3)) } }
+  }
+}

@@ -1,15 +1,80 @@
-import { Modal } from './Modal/Modal'
-import { Menu } from './Menu/Menu'
-import { Body } from './Body/Body'
+import clsx from 'clsx'
+import { useEffect, useRef, useState } from 'react'
+import { HashRouter } from 'react-router-dom'
 
-import classes from './App.module.css'
+import { useLS } from '../../stores/useLS'
+import c from './App.module.scss'
+import { Body } from './Body'
+import { Portal as FixedPortal } from './FixedPortal/Portal'
+import { Menu } from './Menu'
+import { Portal as PopupPortal } from './PopupPortal/Portal'
 
 export const App = () => {
+  const theme = useLS(state => state.theme)
+  const themeMainColor = useLS(state => state.themeMainColor)
+  const borderRadius = useLS(state => state.borderRadius)
+  const gap = useLS(state => state.gap)
+
+  const [isSystemDark, setIsSystemDark] = useState(null)
+  const [isDark, setIsDark] = useState(null)
+  const [isSwitchingTheme, setIsSwitchingTheme] = useState(false)
+  const themeSwitchTimeout = useRef(null)
+
+  useEffect(() => {
+    const themeQuery = window.matchMedia('(prefers-color-scheme: dark)')
+    const appRenderedQuery = new CustomEvent('app_rendered')
+
+    window.dispatchEvent(appRenderedQuery)
+
+    if (themeQuery.matches) setIsSystemDark(true)
+
+    const themeChanged = e => {
+      if (e.matches) setIsSystemDark(true)
+      else setIsSystemDark(false)
+    }
+
+    themeQuery.addEventListener('change', themeChanged)
+    return () => themeQuery.removeEventListener('change', themeChanged)
+  }, [])
+
+  useEffect(() => {
+    setIsDark(prevIsDark => {
+      const newIsDark = theme === 'dark' || (theme === 'system' && isSystemDark)
+
+      if (prevIsDark !== newIsDark) {
+        clearTimeout(themeSwitchTimeout.current)
+        setIsSwitchingTheme(true)
+        themeSwitchTimeout.current = setTimeout(
+          () => setIsSwitchingTheme(false),
+          500
+        )
+      }
+
+      return newIsDark
+    })
+  }, [isSystemDark, theme])
+
   return (
-    <div className={classes.App}>
-      <Modal />
-      <Menu />
-      <Body />
-    </div>
+    <HashRouter>
+      <div
+        className={clsx(
+          c.App,
+          isDark && c.dark,
+          isSwitchingTheme && c.switchingTheme
+        )}
+        style={{
+          '--ca': `hsl(${themeMainColor * 3.6} 100% 50%)`,
+          '--brr': `${borderRadius * 8}px`,
+          '--gap': `${gap === 'big' ? '16' : gap === 'standard' ? '8' : '4'}px`
+        }}
+      >
+        <div className={c.wrapper}>
+          <Menu />
+          <Body />
+          <FixedPortal />
+          <PopupPortal />
+        </div>
+      </div>
+    </HashRouter>
   )
 }

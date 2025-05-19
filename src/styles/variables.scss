@@ -1,0 +1,11 @@
+:root {
+  --bg: color-mix(in srgb, white 85%, black);
+  --lbg: white;
+  --dbg: color-mix(in srgb, white 75%, black);
+  --fc: black;
+
+  --ca: hsl(20 100% 50%);
+  --bs: 0 0 10px color-mix(in srgb, black 30%, transparent);
+  --brr: 8px;
+  --gap: 8px;
+}

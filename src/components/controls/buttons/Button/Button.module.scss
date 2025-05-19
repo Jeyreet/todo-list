@@ -1,0 +1,65 @@
+@use '../../../../styles/mixins';
+
+.Button {
+  display: flex;
+  align-items: stretch;
+
+  &.loading {
+    .inner {
+      cursor: progress;
+    }
+  }
+
+  &:active:not(:is(.loading, .disabled)) {
+    .inner {
+      transform: translateY(3px);
+      transition: background-color .3s, color .3s, transform .1s;
+    }
+  }
+
+  @include mixins.hover {
+    .inner {
+      background-color: color-mix(in srgb, var(--ca) 80%, black);
+
+      :global(body.dark) & {
+        background-color: color-mix(in srgb, var(--ca) 80%, white);
+      }
+    }
+  }
+
+  &:focus-visible {
+    .inner {
+      background-color: color-mix(in srgb, var(--ca) 80%, black);
+
+      :global(body.dark) & {
+        background-color: color-mix(in srgb, var(--ca) 80%, white);
+      }
+    }
+  }
+
+  &.disabled {
+    .inner {
+      background-color: color-mix(in srgb, var(--ca), white);
+
+      :global(body.dark) & {
+        background-color: color-mix(in srgb, var(--ca) 60%, black)
+      }
+
+      cursor: not-allowed;
+    }
+  }
+}
+
+.inner {
+  position: relative;
+  flex-grow: 1;
+  border-radius: var(--brr);
+  background-color: var(--ca);
+  padding: var(--gap) calc(var(--gap) * 1.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+  transition: background-color .3s, transform .4s;
+}

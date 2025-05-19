@@ -1,0 +1,19 @@
+.inner {
+  background-color: red;
+}
+
+.storeButton {
+  flex-grow: 1;
+}
+
+.importIcon {
+  transform: rotate(-90deg);
+}
+
+.exportIcon {
+  transform: rotate(90deg);
+}
+
+.gap {
+  flex-wrap: wrap;
+}

@@ -1,0 +1,89 @@
+.controls {
+  gap: calc(var(--gap) * 2);
+  display: flex;
+  align-items: center;
+}
+
+.monthWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.monthButtonInner {
+  padding: 1px 5px;
+}
+
+.nextMonthIcon {
+  transform: rotate(180deg);
+}
+
+.month {
+  width: 100px;
+
+  text-align: center;
+}
+
+.yearWrapper {
+  gap: 2px;
+  display: flex;
+  align-items: center;
+}
+
+.yearButton {
+  &:first-child .yearButtonInner {
+    border-bottom-right-radius: calc(var(--brr) * .3);
+    border-top-right-radius: calc(var(--brr) * .3);
+  }
+
+  &:nth-child(2) .yearButtonInner {
+    border-bottom-left-radius: calc(var(--brr) * .3);
+    border-top-left-radius: calc(var(--brr) * .3);
+  }
+}
+
+.yearButtonInner {
+  padding: 5px 1px;
+}
+
+.prevYearIcon {
+  transform: rotate(-90deg);
+}
+
+.nextYearIcon {
+  transform: rotate(90deg);
+}
+
+.year {
+  width: 50px;
+
+  text-align: center;
+}
+
+.days {
+  gap: 7px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.weekday {
+  text-align: center;
+}
+
+.monthDayInner {
+  background-color: transparent;
+  padding: 5px 0;
+
+  &.selected {
+    background-color: var(--ca);
+  }
+}
+
+.resetButtonWrapper {
+  flex-grow: 1;
+  display: flex;
+  justify-content: end;
+}
+
+.resetButtonInner {
+  padding: 0 5px;
+}

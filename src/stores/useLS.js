@@ -1,0 +1,195 @@
+import dayjs from 'dayjs'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
+import { z } from 'zod'
+import { create } from 'zustand'
+
+dayjs.extend(customParseFormat)
+
+const stringifyDate = date =>
+  date?.isValid() ? date.format('DD.MM.YYYY') : undefined
+
+const zodDate = (format = 'DD.MM.YYYY') =>
+  z.string().refine(value => dayjs(value, format, true).isValid())
+
+const zodObjectsArray = objectSchema =>
+  z
+    .array(z.any())
+    .transform(objects =>
+      objects
+        .map(object => objectSchema.safeParse(object))
+        .filter(r => r.success)
+        .map(r => r.data)
+    )
+    .catch([])
+
+const taskSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  desc: z.string().optional(),
+  start: zodDate().optional(),
+  end: zodDate().optional(),
+  done: z.literal(true).optional()
+})
+
+const walletSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  balance: z.number(),
+  main: z.literal(true).optional()
+})
+
+const schema = z.object({
+  themeMainColor: z.number().catch(6),
+  borderRadius: z.boolean().catch(true),
+  theme: z.enum(['system', 'light', 'dark']).catch('system'),
+  gap: z.enum(['standard', 'big', 'small']).catch('standard'),
+
+  tasks: zodObjectsArray(taskSchema),
+  wallets: zodObjectsArray(walletSchema),
+
+  taskRemoveConfirmation: z.boolean().catch(true)
+})
+
+const parseString = string => {
+  try {
+    const data = JSON.parse(string)
+    return schema.parse(data)
+  } catch {
+    return schema.parse({})
+  }
+}
+
+export const useLS = create(() => parseString(localStorage.getItem('data')))
+
+const _LSControls = {
+  setTaskRemoveConfirmation: taskRemoveConfirmation =>
+    useLS.setState({ taskRemoveConfirmation }),
+  setBorderRadius: borderRadius => useLS.setState({ borderRadius }),
+  setTheme: theme => useLS.setState({ theme }),
+  setGap: gap => useLS.setState({ gap }),
+
+  setTasks: tasks => useLS.setState({ tasks }),
+  setWallets: wallets => useLS.setState({ wallets })
+}
+
+export const LSControls = {
+  getThemeMainColor: () => useLS.getState().themeMainColor,
+  setThemeMainColor: themeMainColor => useLS.setState({ themeMainColor }),
+
+  getBorderRadius: () => useLS.getState().borderRadius,
+  enableBorderRadius: () => _LSControls.setBorderRadius(true),
+  disableBorderRadius: () => _LSControls.setBorderRadius(false),
+
+  getTheme: () => useLS.getState().theme,
+  setLightTheme: () => _LSControls.setTheme('light'),
+  setDarkTheme: () => _LSControls.setTheme('dark'),
+  clearTheme: () => _LSControls.setTheme('system'),
+
+  getGap: () => useLS.getState().gap,
+  setBigGap: () => _LSControls.setGap('big'),
+  setStandardGap: () => _LSControls.setGap('standard'),
+  setSmallGap: () => _LSControls.setGap('small'),
+
+  getTaskRemoveConfirmation: () => useLS.getState().taskRemoveConfirmation,
+  enableTaskRemoveConfirmation: () =>
+    _LSControls.setTaskRemoveConfirmation(true),
+  disableTaskRemoveConfirmation: () =>
+    _LSControls.setTaskRemoveConfirmation(false),
+
+  getTask: id => useLS.getState().tasks.find(task => task.id === id),
+  addTask: data => {
+    const tasks = useLS.getState().tasks
+
+    const newTask = {
+      ...data,
+      id: tasks.length ? Math.max(...tasks.map(t => t.id)) + 1 : 0,
+      start: stringifyDate(data.start),
+      end: stringifyDate(data.end)
+    }
+
+    _LSControls.setTasks([...tasks, newTask])
+  },
+  toggleTask: id => {
+    const tasks = useLS.getState().tasks
+
+    _LSControls.setTasks(
+      tasks.map(task =>
+        task.id === id ? { ...task, done: task.done ? undefined : true } : task
+      )
+    )
+  },
+  modifyTask: (id, data) => {
+    const tasks = useLS.getState().tasks
+
+    const modifiedData = {
+      ...data,
+      start: stringifyDate(data.start),
+      end: stringifyDate(data.end)
+    }
+
+    _LSControls.setTasks(
+      tasks.map(t => (t.id === id ? { ...t, ...modifiedData } : t))
+    )
+  },
+  removeTask: id =>
+    _LSControls.setTasks(useLS.getState().tasks.filter(task => task.id !== id)),
+
+  getWallet: id => useLS.getState().wallets.find(wallet => wallet.id === id),
+  addWallet: data => {
+    const wallets = useLS.getState().wallets
+
+    const newWallet = {
+      ...data,
+      id: wallets.length ? Math.max(...wallets.map(w => w.id)) + 1 : 0,
+      main: data.main ? true : undefined
+    }
+
+    const updatedWallets = wallets.map(w => ({
+      ...w,
+      main: newWallet.main ? undefined : w.main
+    }))
+
+    _LSControls.setWallets([...updatedWallets, newWallet])
+  },
+  modifyWallet: (id, data) => {
+    const wallets = useLS.getState().wallets
+
+    const modifiedData = {
+      ...data,
+      main: data.main ? true : undefined
+    }
+
+    _LSControls.setWallets(
+      wallets.map(w =>
+        w.id === id
+          ? { ...w, ...modifiedData }
+          : { ...w, main: modifiedData.main ? undefined : w.main }
+      )
+    )
+  },
+  removeWallet: id =>
+    _LSControls.setWallets(
+      useLS.getState().wallets.filter(wallet => wallet.id !== id)
+    ),
+
+  import: serializedStore => useLS.setState(parseString(serializedStore)),
+  export: () => JSON.stringify(useLS.getState()),
+  reset: () => {
+    localStorage.setItem('data', '')
+    useLS.setState(parseString(localStorage.getItem('data')))
+  }
+}
+
+let isExternalUpdate = false
+
+useLS.subscribe(state => {
+  if (!isExternalUpdate) localStorage.setItem('data', JSON.stringify(state))
+})
+
+window.addEventListener('storage', e => {
+  if (e.key === 'data') {
+    isExternalUpdate = true
+    useLS.setState(parseString(e.newValue))
+    isExternalUpdate = false
+  }
+})

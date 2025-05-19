@@ -1,0 +1,13 @@
+.inner {
+  padding: var(--gap);
+}
+
+.gap {
+  flex-grow: 1;
+  align-items: center;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}

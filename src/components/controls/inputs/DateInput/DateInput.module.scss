@@ -1,0 +1,20 @@
+.inputs {
+  border-radius: calc(var(--brr) * 1.2);
+  background-color: var(--lbg);
+  padding: 10px;
+  display: flex;
+
+  input {
+    &.short {
+      width: 20px;
+    }
+
+    &.long {
+      width: 40px;
+    }
+
+    &::placeholder {
+      padding-left: 3px;
+    }
+  }
+}

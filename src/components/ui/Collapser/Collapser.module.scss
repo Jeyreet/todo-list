@@ -1,0 +1,20 @@
+.Collapser {
+  display: grid;
+  grid-template-rows: 1fr;
+
+  &[data-mounted] {
+    animation: opening .5s forwards;
+
+    @keyframes opening { from { grid-template-rows: 0fr } }
+  }
+
+  &[data-unmounted] {
+    animation: closing .5s forwards;
+
+    @keyframes closing { to { grid-template-rows: 0fr } }
+  }
+}
+
+.wrapper {
+  overflow: hidden;
+}

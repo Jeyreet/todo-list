@@ -1,0 +1,8 @@
+.Gap {
+  gap: var(--gap);
+  display: flex;
+
+  &.column {
+    flex-direction: column;
+  }
+}

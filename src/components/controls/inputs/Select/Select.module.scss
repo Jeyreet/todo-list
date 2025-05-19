@@ -1,0 +1,14 @@
+.button {
+  width: 100%;
+}
+
+.inner {
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.chevron {
+  width: 24px;
+  height: 24px;
+  margin: calc(var(--gap) * -.5)
+}

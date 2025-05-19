@@ -1,0 +1,20 @@
+body, body * {
+  box-sizing: border-box;
+  margin: 0;
+  box-shadow: none;
+  outline: none;
+  outline-offset: 0;
+  border: none;
+  background: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+
+  list-style: none;
+  resize: none;
+  -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+  word-wrap: break-word;
+}

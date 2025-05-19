@@ -3,12 +3,12 @@
 <svg version="1.1" id="Слой_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
 <g>
-	<rect y="2" width="24" height="3"/>
+	<path d="M1.5,3h21C23.3,3,24,3.7,24,4.5v0C24,5.3,23.3,6,22.5,6h-21C0.7,6,0,5.3,0,4.5v0C0,3.7,0.7,3,1.5,3z"/>
 </g>
 <g>
-	<rect y="18" width="24" height="3"/>
+	<path d="M1.5,17h21c0.8,0,1.5,0.7,1.5,1.5v0c0,0.8-0.7,1.5-1.5,1.5h-21C0.7,20,0,19.3,0,18.5v0C0,17.7,0.7,17,1.5,17z"/>
 </g>
 <g>
-	<rect y="10" width="24" height="3"/>
+	<path d="M1.5,10h21c0.8,0,1.5,0.7,1.5,1.5v0c0,0.8-0.7,1.5-1.5,1.5h-21C0.7,13,0,12.3,0,11.5v0C0,10.7,0.7,10,1.5,10z"/>
 </g>
 </svg>

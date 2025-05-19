@@ -1,0 +1,71 @@
+.Switch {
+  cursor: pointer;
+
+  &:active {
+    .thumb {
+      width: 1.7em;
+
+      transform: translateX(-.4em);
+      transition: background-color .3s, transform .25s, width .23s;
+    }
+
+    &:has(input:checked) {
+      .thumb {
+        transform: translateX(.4em);
+      }
+    }
+  }
+
+  &:has(input:checked) {
+    .thumb {
+      background-color: var(--ca);
+
+      transform: translateX(.8em);
+    }
+  }
+
+  &:has(input:focus-visible) {
+    .track {
+      background-color: color-mix(in srgb, var(--ca) 80%, black);
+
+      :global(body.dark) & {
+        background-color: color-mix(in srgb, var(--ca) 80%, white);
+      }
+    }
+  }
+}
+
+.gap {
+  justify-content: space-between;
+}
+
+.header {
+  margin: 0;
+}
+
+.track {
+  flex-shrink: 0;
+  width: 3em;
+  height: 1.4em;
+  border-radius: var(--brr);
+  background-color: var(--lbg);
+  padding: .25em;
+  display: flex;
+  justify-content: center;
+
+  transition: background-color .3s;
+}
+
+.thumb {
+  width: .9em;
+  height: .9em;
+  border-radius: calc(var(--brr) * .6);
+  background-color: color-mix(in srgb, var(--ca), white);
+
+  transform: translateX(-.8em);
+  transition: background-color .3s, transform .2s, width .25s;
+
+  :global(body.dark) & {
+    background-color: color-mix(in srgb, var(--ca) 60%, black)
+  }
+}

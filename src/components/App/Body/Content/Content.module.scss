@@ -1,11 +1,14 @@
 .Content {
+  position: relative;
   flex-grow: 1;
-  flex-shrink: 1;
-  padding: 0 15px 70px;
-  overflow-y: auto;
+  margin: 0 calc(var(--gap) * -1) calc(var(--gap) * -1);
 }
 
+.scroller {
+  border-bottom-left-radius: calc(var(--brr) * 2);
+  border-bottom-right-radius: calc(var(--brr) * 2);
+}
 
-
-
-
+.inner {
+  padding: 0 var(--gap) 80px;
+}

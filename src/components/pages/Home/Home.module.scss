@@ -1,0 +1,11 @@
+:is(.alert, .warning) {
+  font-weight: 700;
+}
+
+.warning {
+  color: yellow;
+}
+
+.alert {
+  color: red;
+}

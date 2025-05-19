@@ -1,0 +1,19 @@
+@use '../../../../styles/mixins';
+
+.Links {
+  flex-grow: 1;
+  border-radius: calc(var(--brr) * 2);
+  background-color: var(--bg);
+
+  @include mixins.width(1100px) {
+    box-shadow: var(--bs);
+  }
+}
+
+.scroller {
+  border-radius: calc(var(--brr) * 2);
+}
+
+.inner {
+  padding: var(--gap);
+}

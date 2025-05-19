@@ -1,0 +1,44 @@
+.input {
+  width: 3em;
+  border-radius: calc(var(--brr) * 1.2);
+  background-color: var(--lbg);
+  padding: 10px;
+}
+
+.header {
+  display: none;
+}
+
+.line {
+  position: relative;
+  flex-grow: 1;
+  border-radius: calc(var(--brr) * 1.2);
+
+  background-image: linear-gradient(in hsl longer hue 90deg, hsl(0 100% 50%) 0 0);
+  cursor: pointer;
+}
+
+.selectorPosition {
+  position: absolute;
+  width: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  pointer-events: none;
+}
+
+.selectorWrapper {
+  height: calc(100% + 8px);
+  border-radius: var(--brr);
+  background-color: var(--lbg);
+  padding: 4px;
+}
+
+.selector {
+  width: 6px;
+  height: 100%;
+  border-radius: var(--brr);
+  background-color: var(--ca);
+}

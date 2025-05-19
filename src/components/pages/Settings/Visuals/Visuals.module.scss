@@ -1,0 +1,10 @@
+@use '../../../../styles/mixins';
+
+.gap {
+  gap: calc(var(--gap) * 3);
+
+  @include mixins.width(400px) {
+    gap: var(--gap);
+    flex-direction: column;
+  }
+}

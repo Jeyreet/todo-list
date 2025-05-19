@@ -1,7 +1,12 @@
-.Content {
+@use '../../../styles/mixins';
+
+.Body {
   flex-grow: 1;
+  max-width: 100%;
+  border-radius: calc(var(--brr) * 2);
+  background-color: var(--bg);
+  padding: var(--gap);
+  gap: var(--gap);
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  background-color: white;
 }

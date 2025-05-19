@@ -1,17 +1,14 @@
-import { Header } from './Header/Header'
-import { Content } from './Content/Content.jsx'
-
-import { useGlobalStore } from '../../../hooks/useGlobalStore'
-
-import classes from './Body.module.css'
+import { useUI } from '../../../stores/useUI'
+import classes from './Body.module.scss'
+import { Content } from './Content'
+import { Header } from './Header'
 
 export const Body = () => {
-  const isMenuOpen = useGlobalStore(state => state.isMenuOpen)
-  const isModalOpen = useGlobalStore(state => state.isModalOpen)
-  const isScreenWide = useGlobalStore(state => state.isScreenWide)
+  const isMenuOpened = useUI(state => state.isMenuOpened)
+  const isPopupOpened = useUI(state => state.isPopupOpened)
 
   return (
-    <div className={classes.Content} inert={(isMenuOpen && !isScreenWide) || isModalOpen}>
+    <div className={classes.Body} inert={isMenuOpened || isPopupOpened}>
       <Header />
       <Content />
     </div>

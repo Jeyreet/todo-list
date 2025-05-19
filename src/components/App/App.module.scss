@@ -1,7 +1,35 @@
+@use '../../styles/mixins';
+
 .App {
-  width: 100vw;
-  max-width: 1500px;
-  height: 100dvh;
+  flex-grow: 1;
+  background-color: var(--dbg);
+  padding: var(--gap);
   display: flex;
+  justify-content: center;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 1rem;
+  color: var(--fc);
+
+  &.dark {
+    --bg: color-mix(in srgb, white 10%, black);
+    --lbg: color-mix(in srgb, white 15%, black);
+    --dbg: color-mix(in srgb, white 7%, black);
+    --fc: white;
+  }
+
+  &.switchingTheme {
+    transition: color .5s, background-color .5s;
+
+    & * {
+      transition: background-color .5s;
+    }
+  }
+}
+
+.wrapper {
   position: relative;
+  flex-grow: 1;
+  max-width: min(100%, 1400px);
+  gap: var(--gap);
+  display: flex;
 }

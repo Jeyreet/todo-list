@@ -1,33 +1,25 @@
-import { Header } from './Header/Header.jsx'
-import { Hr } from '../../Hr/Hr'
-import { LinkList } from './LinkList/LinkList.jsx'
+import clsx from 'clsx'
 
-import { useGlobalStore } from '../../../hooks/useGlobalStore.js'
-import { useEscape } from '../../../hooks/useEscape.js'
-
-import classes from './Menu.module.css'
+import { useUI } from '../../../stores/useUI'
+import { Header } from './Header'
+import { Links } from './Links'
+import c from './Menu.module.scss'
 
 export const Menu = () => {
-  const isMenuOpen = useGlobalStore(state => state.isMenuOpen)
-  const isModalOpen = useGlobalStore(state => state.isModalOpen)
-  const isScreenWide = useGlobalStore(state => state.isScreenWide)
-  const closeMenu = useGlobalStore(state => state.closeMenu)
-
-  useEscape(closeMenu, isMenuOpen)
+  const isScreenWide = useUI(state => state.isScreenWide)
+  const isMenuOpened = useUI(state => state.isMenuOpened)
+  const isPopupOpened = useUI(state => state.isPopupOpened)
+  const closeMenu = useUI(state => state.closeMenu)
 
   return (
     <div
-      className={classes.Menu}
+      className={clsx(c.Menu, !isScreenWide && c.index)}
+      inert={(!isMenuOpened && !isScreenWide) || isPopupOpened}
       onClick={closeMenu}
-      inert={!isMenuOpen && !isScreenWide || isModalOpen}
     >
-      <div
-        className={classes.inner}
-        onClick={e => e.stopPropagation()}
-      >
+      <div className={c.inner} onClick={e => e.stopPropagation()}>
         <Header />
-        <Hr />
-        <LinkList />
+        <Links />
       </div>
     </div>
   )

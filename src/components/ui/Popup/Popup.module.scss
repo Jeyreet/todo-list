@@ -1,0 +1,100 @@
+@use '../../../styles/mixins';
+
+.Popup {
+  position: absolute;
+  inset: 0;
+  padding: calc(var(--gap) * 2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  --pointX: .29;
+  --pointY: .41;
+  --point2X: calc(1 - var(--pointY));
+  --point2Y: calc(1 - var(--pointX));
+
+  &.background:not([data-unmounted]) {
+    background-color: #00000000;
+
+    animation: fade_in .2s forwards cubic-bezier(var(--pointX), var(--pointY), var(--point2X), var(--point2Y));
+
+    @keyframes fade_in {
+      to {
+        background-color: #00000080;
+      }
+    }
+  }
+
+  &.background:is([data-unmounted], :has(+ .Popup:not([data-unmounted]).background)) {
+    background-color: #00000080;
+
+    animation: fade_out .2s forwards cubic-bezier(var(--pointY), var(--pointX), var(--point2Y), var(--point2X));
+
+    @keyframes fade_out {
+      to {
+        background-color: #00000000;
+      }
+    }
+  }
+
+  &[data-mounted] {
+    .inner {
+      animation: opening .2s forwards;
+      opacity: 0;
+      transform: scale(.7);
+
+      @keyframes opening {
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+    }
+  }
+
+  &[data-unmounted] {
+    pointer-events: none;
+
+    .inner {
+      animation: closing .2s forwards;
+      opacity: 1;
+      transform: scale(1);
+
+      @keyframes closing {
+        to {
+          opacity: 0;
+          transform: scale(.7);
+        }
+      }
+    }
+  }
+}
+
+.inner {
+  min-width: min(var(--minWidth), 100%);
+  max-width: min(var(--maxWidth), 100%);
+  min-height: min(var(--minHeight), 100%);
+  max-height: min(var(--maxHeight), 100%);
+  box-shadow: var(--bs);
+  border-radius: calc(var(--brr) * 2);
+  background-color: var(--bg);
+  padding: var(--gap);
+  display: flex;
+  flex-direction: column;
+}
+
+.scroller {
+  margin-inline: calc(-1 * var(--gap));
+}
+
+.scrollerInner {
+  margin-inline: var(--gap);
+
+  &.gap {
+    gap: var(--gap);
+  }
+}
+
+.title {
+  margin-bottom: 15px;
+}

@@ -1,0 +1,14 @@
+.CalendarButton {
+  flex-grow: 1;
+  display: flex;
+  justify-content: end;
+}
+
+.button {
+  margin: -5px;
+}
+
+.inner {
+  border-radius: calc(var(--brr) * .7);
+  padding: 3px;
+}

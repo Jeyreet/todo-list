@@ -1,19 +1,18 @@
-import {Button} from '../../../controls/Button/Button'
-import ArrowLeftIcon from '../../../../assets/icons/arrow_left.svg'
+import { memo } from 'react'
 
-import {useGlobalStore} from '../../../../hooks/useGlobalStore.js'
+import Arrow from '../../../../assets/icons/arrow.svg'
+import { useUI } from '../../../../stores/useUI'
+import { IconButton } from '../../../controls/buttons/IconButton'
+import { Title } from '../../../ui/Title'
+import c from './Header.module.scss'
 
-import classes from './Header.module.css'
-
-export const Header = () => {
-  const closeMenu = useGlobalStore(state => state.closeMenu)
+export const Header = memo(() => {
+  const closeMenu = useUI(state => state.closeMenu)
 
   return (
-    <div className={classes.Header}>
-      <h1 className={classes.title}>Todo List</h1>
-      <Button className={classes.button} onClick={closeMenu}>
-        <ArrowLeftIcon className="icon icon--button" />
-      </Button>
+    <div className={c.Header}>
+      <Title className={c.title}>Jeyreet Todo List</Title>
+      <IconButton className={c.button} icon={Arrow} onClick={closeMenu} />
     </div>
   )
-}
+})

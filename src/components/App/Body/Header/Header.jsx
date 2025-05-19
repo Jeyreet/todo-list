@@ -1,24 +1,20 @@
-import { Button } from '../../../controls/Button/Button.jsx'
-import BurgerIcon from '../../../../assets/icons/burger.svg'
+import { memo } from 'react'
 
-import { useGlobalStore } from '../../../../hooks/useGlobalStore.js'
-import { useEscape } from '../../../../hooks/useEscape.js'
+import Burger from '../../../../assets/icons/burger.svg'
+import { useUI } from '../../../../stores/useUI'
+import { IconButton } from '../../../controls/buttons/IconButton'
+import { Gap } from '../../../ui/Gap'
+import { Title } from '../../../ui/Title'
+import c from './Header.module.scss'
 
-import classes from './Header.module.css'
-
-export const Header = () => {
-  const isMenuOpen = useGlobalStore(state => state.isMenuOpen)
-  const openMenu = useGlobalStore(state => state.openMenu)
-  const headerTitle = useGlobalStore(state => state.headerTitle)
-
-  useEscape(openMenu, !isMenuOpen)
+export const Header = memo(() => {
+  const currentPageTitle = useUI(state => state.currentPageTitle)
+  const openMenu = useUI(state => state.openMenu)
 
   return (
-    <div className={classes.Header}>
-      <Button className={classes.button} onClick={openMenu}>
-        <BurgerIcon className="icon icon--button" />
-      </Button>
-      <h2 className={classes.title}>{headerTitle}</h2>
-    </div>
+    <Gap className={c.Header}>
+      <IconButton className={c.button} icon={Burger} onClick={openMenu} />
+      <Title className={c.title}>{currentPageTitle}</Title>
+    </Gap>
   )
-}
+})
