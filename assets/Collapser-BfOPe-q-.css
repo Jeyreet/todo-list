@@ -1,0 +1,1 @@
+._Collapser_15j5n_1{display:grid;grid-template-rows:1fr}._Collapser_15j5n_1[data-mounted]{animation:_opening_15j5n_1 .5s forwards}@keyframes _opening_15j5n_1{0%{grid-template-rows:0fr}}._Collapser_15j5n_1[data-unmounted]{animation:_closing_15j5n_1 .5s forwards}@keyframes _closing_15j5n_1{to{grid-template-rows:0fr}}._wrapper_15j5n_22{overflow:hidden}
