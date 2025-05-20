@@ -21,12 +21,12 @@ export const Popup = ({
       {controls.isOpened && (
         <div
           className={clsx(c.Popup, className, background && c.background)}
-          onClick={controls.close}
+          onMouseDown={controls.close}
         >
           <div
             className={clsx(c.inner, cs.inner)}
             ref={controls.ref}
-            onClick={e => e.stopPropagation()}
+            onMouseDown={e => e.stopPropagation()}
             style={{
               '--minWidth': `${minWidth}px`,
               '--minHeight': `${minHeight}px`,
