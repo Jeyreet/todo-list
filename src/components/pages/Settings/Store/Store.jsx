@@ -18,7 +18,8 @@ import c from './Store.module.scss'
 
 export const Store = () => {
   const controls = usePopup()
-  const { control, getValues, setValue, watch } = useForm({
+  const { control, getValues, setValue, watch, handleSubmit } = useForm({
+    mode: 'onSubmit',
     defaultValues: {
       settingsImportProtection: LSControls.getSettingsImportProtection()
     }
@@ -43,40 +44,43 @@ export const Store = () => {
   return (
     <>
       <Title indent>Хранилище</Title>
-      <AreaInput
-        label="Импорт и экспорт"
-        placeholder="Ваши данные..."
-        name="store"
-        control={control}
-      />
-      <Switch
-        label="Предотвратить импортирование настроек"
-        name="settingsImportProtection"
-        control={control}
-      />
-      <Gap className={c.gap}>
-        <IconButton
-          className={c.storeButton}
-          cs={{ icon: c.importIcon }}
-          icon={Arrow}
-          label="Импорт"
-          onClick={importStore}
+      <form onSubmit={handleSubmit(importStore)}>
+        <AreaInput
+          label="Импорт и экспорт"
+          placeholder="Ваши данные..."
+          name="store"
+          rules={{ required: 'Заполните данные для импорта' }}
+          control={control}
         />
-        <IconButton
-          className={c.storeButton}
-          cs={{ icon: c.exportIcon }}
-          icon={Arrow}
-          label="Экспорт"
-          onClick={exportStore}
+        <Switch
+          label="Предотвратить импортирование настроек"
+          name="settingsImportProtection"
+          control={control}
         />
-        <IconButton
-          className={c.storeButton}
-          cs={{ inner: c.inner }}
-          icon={Trashcan}
-          label="Сброс"
-          onClick={controls.open}
-        />
-      </Gap>
+        <Gap className={c.gap}>
+          <IconButton
+            className={c.storeButton}
+            cs={{ icon: c.importIcon }}
+            icon={Arrow}
+            label="Импорт"
+            type="submit"
+          />
+          <IconButton
+            className={c.storeButton}
+            cs={{ icon: c.exportIcon }}
+            icon={Arrow}
+            label="Экспорт"
+            onClick={exportStore}
+          />
+          <IconButton
+            className={c.storeButton}
+            cs={{ inner: c.inner }}
+            icon={Trashcan}
+            label="Сброс"
+            onClick={controls.open}
+          />
+        </Gap>
+      </form>
 
       <Popup controls={controls} maxWidth={450}>
         <Gap column>
