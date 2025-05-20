@@ -9,12 +9,12 @@ import { IconButton } from '../../../../controls/buttons/IconButton'
 import { Gap } from '../../../../ui/Gap'
 import { ListCard } from '../../../../ui/ListCard'
 import { Title } from '../../../../ui/Title'
-import c from './Category.module.scss'
 import { ContextActions } from './ContextActions'
 import { Modify } from './Modify'
 import { Remove } from './Remove'
+import c from './Subcategory.module.scss'
 
-export const Category = memo(({ category: { id, name } }) => {
+export const Subcategory = memo(({ subcategory: { id, name } }) => {
   const buttonRef = useRef(null)
   const point = useCallback(
     () => calculatePoint(buttonRef.current),
@@ -26,7 +26,7 @@ export const Category = memo(({ category: { id, name } }) => {
   const navigate = useNavigate()
 
   return (
-    <ListCard className={c.Category}>
+    <ListCard className={c.Subcategory}>
       <Gap className={c.header}>
         <Title>{name}</Title>
         <IconButton

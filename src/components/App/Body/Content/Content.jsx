@@ -20,6 +20,12 @@ const Categories = lazy(() =>
   }))
 )
 
+const Subcategories = lazy(() =>
+  import('../../../pages/Subcategories').then(module => ({
+    default: module.Subcategories
+  }))
+)
+
 const Wallets = lazy(() =>
   import('../../../pages/Wallets').then(module => ({ default: module.Wallets }))
 )
@@ -42,6 +48,7 @@ export const Content = memo(() => {
             <Route path="/home" element={<Home />} />
             <Route path="/tasks" element={<Tasks />} />
             <Route path="/categories" element={<Categories />} />
+            <Route path="/categories/:id" element={<Subcategories />} />
             <Route path="/wallets" element={<Wallets />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="*" element={<Navigate to="/home" />} />

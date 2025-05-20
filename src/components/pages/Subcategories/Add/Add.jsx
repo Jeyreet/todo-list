@@ -10,7 +10,7 @@ import { Popup } from '../../../ui/Popup'
 import { Title } from '../../../ui/Title'
 import c from './Add.module.scss'
 
-export const Add = ({ controls }) => {
+export const Add = ({ id, controls }) => {
   const addCategory = LSControls.addCategory
 
   const {
@@ -26,7 +26,7 @@ export const Add = ({ controls }) => {
   })
 
   const handleAddCategory = data => {
-    addCategory(data)
+    addCategory({ ...data, parent: id })
     reset()
     controls.close()
   }
@@ -34,7 +34,7 @@ export const Add = ({ controls }) => {
   return (
     <Popup controls={controls} minWidth={300}>
       <Gap column>
-        <Title>Добавить категорию</Title>
+        <Title>Добавить подкатегорию</Title>
         <form onSubmit={handleSubmit(handleAddCategory)}>
           <Popup.Scroller>
             <Gap column>
@@ -45,15 +45,6 @@ export const Add = ({ controls }) => {
                 rules={{ required: 'Обязательное' }}
                 control={control}
                 autoFocus
-              />
-              <Radio
-                label="Тип"
-                name="type"
-                options={[
-                  { value: 'expense', label: 'Расходы' },
-                  { value: 'income', label: 'Доходы' }
-                ]}
-                control={control}
               />
             </Gap>
           </Popup.Scroller>

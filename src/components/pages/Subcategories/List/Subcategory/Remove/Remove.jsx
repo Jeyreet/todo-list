@@ -18,8 +18,8 @@ export const Remove = ({ id, controls }) => {
   return (
     <Popup controls={controls} maxWidth={320}>
       <Gap column>
-        <Title>Удаление категории</Title>
-        <p>Вы действительно хотите удалить категорию "{category.name}"?</p>
+        <Title>Удаление подкатегории</Title>
+        <p>Вы действительно хотите удалить подкатегорию "{category.name}"?</p>
         <p>Это также удалит все подкатегории и их операции</p>
         <Actions>
           <Button onClick={handleRemoveCategory}>Удалить</Button>

@@ -34,7 +34,7 @@ const taskSchema = z.object({
 const categorySchema = z.object({
   id: z.number(),
   name: z.string(),
-  type: z.enum(['income', 'expense']),
+  type: z.enum(['income', 'expense']).optional(),
   parent: z.number().optional()
 })
 
@@ -162,10 +162,33 @@ export const LSControls = {
       categories.map(c => (c.id === id ? { ...c, ...data } : c))
     )
   },
-  removeCategory: id =>
-    _LSControls.setCategories(
-      useLS.getState().categories.filter(category => category.id !== id)
-    ),
+  removeCategory: id => {
+    const categories = useLS.getState().categories
+
+    let remaining = categories.filter(c => c.id !== id)
+
+    const removeDirectChildren = (remaining, id) => {
+      const removed = []
+      remaining = remaining.filter(c => {
+        const remains = c.parent !== id
+        if (!remains) removed.push(c.id)
+        return remains
+      })
+
+      return { removed, remaining }
+    }
+
+    const removeAllDescendants = (remaining, ids) => {
+      for (const id of ids) {
+        const result = removeDirectChildren(remaining, id)
+        remaining = removeAllDescendants(result.remaining, result.removed)
+      }
+
+      return remaining
+    }
+
+    _LSControls.setCategories(removeAllDescendants(remaining, [id]))
+  },
 
   getWallet: id => useLS.getState().wallets.find(wallet => wallet.id === id),
   addWallet: data => {
