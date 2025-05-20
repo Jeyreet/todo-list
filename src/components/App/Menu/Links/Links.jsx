@@ -4,6 +4,7 @@ import Gear from '../../../../assets/icons/gear.svg'
 import Home from '../../../../assets/icons/home.svg'
 import Tasks from '../../../../assets/icons/tasks.svg'
 import Wallets from '../../../../assets/icons/wallets.svg'
+import Categories from '../../../../assets/icons/categories.svg'
 import { Scroller } from '../../../controls/Scroller'
 import { Gap } from '../../../ui/Gap'
 import { Link } from './Link'
@@ -14,6 +15,7 @@ export const Links = memo(() => {
     () => [
       { label: 'Главная', icon: Home, url: '/home' },
       { label: 'Задачи', icon: Tasks, url: '/tasks' },
+      { label: 'Категории', icon: Categories, url: '/categories' },
       { label: 'Счета', icon: Wallets, url: '/wallets' },
       { label: 'Настройки', icon: Gear, url: '/settings' }
     ],
