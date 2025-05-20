@@ -1,1 +1,0 @@
-import{j as r,b as a}from"./index-DFkOPNkR.js";const o="_Collapser_bg5rh_1",c="_wrapper_bg5rh_13",e={Collapser:o,wrapper:c},t=({className:p,cs:s={},children:l})=>r.jsx("div",{className:a(e.Collapser,p),children:r.jsx("div",{className:a(e.wrapper,s.wrapper),children:r.jsx("div",{className:s.inner,children:l})})});export{t as C};
