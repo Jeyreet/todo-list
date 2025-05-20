@@ -26,10 +26,10 @@
 
   &:has(input:focus-visible) {
     .track {
-      background-color: color-mix(in srgb, var(--ca) 80%, black);
+      background-color: color-mix(in srgb, var(--ca) 60%, white);
 
-      :global(body.dark) & {
-        background-color: color-mix(in srgb, var(--ca) 80%, white);
+      :global(.dark) & {
+        background-color: color-mix(in srgb, var(--ca) 60%, black);
       }
     }
   }
@@ -60,12 +60,12 @@
   width: .9em;
   height: .9em;
   border-radius: calc(var(--brr) * .6);
-  background-color: color-mix(in srgb, var(--ca), white);
+  background-color: color-mix(in srgb, var(--ca) 40%, white);
 
   transform: translateX(-.8em);
   transition: background-color .3s, transform .2s, width .25s;
 
-  :global(body.dark) & {
-    background-color: color-mix(in srgb, var(--ca) 60%, black)
+  :global(.dark) & {
+    background-color: color-mix(in srgb, var(--ca) 40%, black)
   }
 }

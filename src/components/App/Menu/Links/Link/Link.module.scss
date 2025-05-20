@@ -17,22 +17,21 @@
 
   &.active {
     background-color: var(--ca);
-    color: white;
   }
 
   @include mixins.hover {
-    background-color: color-mix(in srgb, var(--ca) 80%, black);
+    background-color: color-mix(in srgb, var(--ca) 80%, white);
 
-    :global(body.dark) & {
-      background-color: color-mix(in srgb, var(--ca) 80%, white);
+    :global(.dark) & {
+      background-color: color-mix(in srgb, var(--ca) 80%, black);
     }
   }
 
   &:focus-visible {
-    background-color: color-mix(in srgb, var(--ca) 80%, black);
+    background-color: color-mix(in srgb, var(--ca) 60%, white);
 
-    :global(body.dark) & {
-      background-color: color-mix(in srgb, var(--ca) 80%, white);
+    :global(.dark) & {
+      background-color: color-mix(in srgb, var(--ca) 60%, black);
     }
   }
 }

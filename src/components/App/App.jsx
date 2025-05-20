@@ -61,11 +61,11 @@ export const App = () => {
       <div
         className={clsx(
           c.App,
-          isDark && c.dark,
+          isDark && 'dark',
           isSwitchingTheme && c.switchingTheme
         )}
         style={{
-          '--ca': `hsl(${themeMainColor * 3.6} 100% 50%)`,
+          '--caAngle': themeMainColor * 3.6,
           '--brr': `${borderRadius * 8}px`,
           '--gap': `${gap === 'big' ? '16' : gap === 'standard' ? '8' : '4'}px`
         }}

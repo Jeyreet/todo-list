@@ -37,6 +37,7 @@
         "clip",
         "clip-path",
         "background",
+        "background-image",
         "background-color",
         "padding",
         "gap",

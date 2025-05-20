@@ -10,11 +10,19 @@
 }
 
 .line {
+  --lightness: 60%;
+
   flex-grow: 1;
   border-radius: calc(var(--brr) * 1.2);
+  background-image: linear-gradient(in hsl longer hue 90deg, hsl(0 100% var(--lightness)) 0 0);
 
-  background-image: linear-gradient(in hsl longer hue 90deg, hsl(0 100% 50%) 0 0);
+  animation: lighter 5s forwards;
+
   cursor: pointer;
+
+  :global(.dark) & {
+    --lightness: 35%;
+  }
 }
 
 .linePadding {

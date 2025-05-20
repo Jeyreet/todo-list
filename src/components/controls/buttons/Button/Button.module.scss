@@ -19,30 +19,30 @@
 
   @include mixins.hover {
     .inner {
-      background-color: color-mix(in srgb, var(--ca) 80%, black);
+      background-color: color-mix(in srgb, var(--ca) 80%, white);
 
-      :global(body.dark) & {
-        background-color: color-mix(in srgb, var(--ca) 80%, white);
+      :global(.dark) & {
+        background-color: color-mix(in srgb, var(--ca) 80%, black);
       }
     }
   }
 
   &:focus-visible {
     .inner {
-      background-color: color-mix(in srgb, var(--ca) 80%, black);
+      background-color: color-mix(in srgb, var(--ca) 60%, white);
 
-      :global(body.dark) & {
-        background-color: color-mix(in srgb, var(--ca) 80%, white);
+      :global(.dark) & {
+        background-color: color-mix(in srgb, var(--ca) 60%, black);
       }
     }
   }
 
   &.disabled {
     .inner {
-      background-color: color-mix(in srgb, var(--ca), white);
+      background-color: color-mix(in srgb, white 70%, black);
 
-      :global(body.dark) & {
-        background-color: color-mix(in srgb, var(--ca) 60%, black)
+      :global(.dark) & {
+        background-color: color-mix(in srgb, white 40%, black);
       }
 
       cursor: not-allowed;
