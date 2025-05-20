@@ -31,6 +31,13 @@ const taskSchema = z.object({
   done: z.literal(true).optional()
 })
 
+const categorySchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  type: z.enum(['income', 'expense']),
+  parent: z.number().optional()
+})
+
 const walletSchema = z.object({
   id: z.number(),
   name: z.string(),
@@ -45,6 +52,7 @@ const schema = z.object({
   gap: z.enum(['standard', 'big', 'small']).catch('standard'),
 
   tasks: zodObjectsArray(taskSchema),
+  categories: zodObjectsArray(categorySchema),
   wallets: zodObjectsArray(walletSchema),
 
   taskRemoveConfirmation: z.boolean().catch(true)
@@ -69,6 +77,7 @@ const _LSControls = {
   setGap: gap => useLS.setState({ gap }),
 
   setTasks: tasks => useLS.setState({ tasks }),
+  setCategories: categories => useLS.setState({ categories }),
   setWallets: wallets => useLS.setState({ wallets })
 }
 
@@ -134,6 +143,28 @@ export const LSControls = {
   removeTask: id =>
     _LSControls.setTasks(useLS.getState().tasks.filter(task => task.id !== id)),
 
+  addCategory: data => {
+    const categories = useLS.getState().categories
+
+    const newCategory = {
+      ...data,
+      id: categories.length ? Math.max(...categories.map(t => t.id)) + 1 : 0
+    }
+
+    _LSControls.setCategories([...categories, newCategory])
+  },
+  modifyCategory: (id, data) => {
+    const categories = useLS.getState().categories
+
+    _LSControls.setCategories(
+      categories.map(c => (c.id === id ? { ...c, ...data } : c))
+    )
+  },
+  removeCategory: id =>
+    _LSControls.setCategories(
+      useLS.getState().categories.filter(category => category.id !== id)
+    ),
+
   getWallet: id => useLS.getState().wallets.find(wallet => wallet.id === id),
   addWallet: data => {
     const wallets = useLS.getState().wallets
@@ -176,7 +207,7 @@ export const LSControls = {
   export: () => JSON.stringify(useLS.getState()),
   reset: () => {
     localStorage.setItem('data', '')
-    useLS.setState(parseString(localStorage.getItem('data')))
+    useLS.setState(parseString())
   }
 }
 
