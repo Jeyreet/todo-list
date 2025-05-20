@@ -30,8 +30,8 @@ export const Popup = ({
             style={{
               '--minWidth': `${minWidth}px`,
               '--minHeight': `${minHeight}px`,
-              '--maxWidth': `${maxWidth}px`,
-              '--maxHeight': `${maxHeight}px`,
+              '--maxWidth': maxWidth ? `${maxWidth}px` : '100%',
+              '--maxHeight': maxHeight ? `${maxHeight}px` : '100%',
               ...innerStyle
             }}
           >
