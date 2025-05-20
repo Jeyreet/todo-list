@@ -10,12 +10,17 @@
 }
 
 .line {
-  position: relative;
   flex-grow: 1;
   border-radius: calc(var(--brr) * 1.2);
 
   background-image: linear-gradient(in hsl longer hue 90deg, hsl(0 100% 50%) 0 0);
   cursor: pointer;
+}
+
+.linePadding {
+  position: relative;
+  height: 100%;
+  margin: 0 calc(var(--gap) * 1.5);
 }
 
 .selectorPosition {

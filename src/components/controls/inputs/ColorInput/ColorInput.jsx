@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import { useController } from 'react-hook-form'
 
 import { Gap } from '../../../ui/Gap'
@@ -19,6 +20,8 @@ export const ColorInput = ({
     fieldState: { error }
   } = useController({ name, rules, control })
 
+  const linePaddingRef = useRef(null)
+
   const handleChange = e => {
     const input = e.target
     const value = Number(input.value.replace(/\D/, ''))
@@ -30,7 +33,7 @@ export const ColorInput = ({
     e.preventDefault()
 
     const isTouch = e.type === 'touchstart'
-    const rect = e.currentTarget.getBoundingClientRect()
+    const rect = linePaddingRef.current.getBoundingClientRect()
 
     const handleMove = evt => {
       const clientX = isTouch ? evt.touches[0].clientX : evt.clientX
@@ -68,9 +71,11 @@ export const ColorInput = ({
           onMouseDown={handleStart}
           onTouchStart={handleStart}
         >
-          <div className={c.selectorPosition} style={{ left: `${value}%` }}>
-            <div className={c.selectorWrapper}>
-              <div className={c.selector} />
+          <div className={c.linePadding} ref={linePaddingRef}>
+            <div className={c.selectorPosition} style={{ left: `${value}%` }}>
+              <div className={c.selectorWrapper}>
+                <div className={c.selector} />
+              </div>
             </div>
           </div>
         </div>
