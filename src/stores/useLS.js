@@ -55,8 +55,18 @@ const schema = z.object({
   categories: zodObjectsArray(categorySchema),
   wallets: zodObjectsArray(walletSchema),
 
-  taskRemoveConfirmation: z.boolean().catch(true)
+  taskRemoveConfirmation: z.boolean().catch(true),
+  settingsImportProtection: z.boolean().catch(false)
 })
+
+const settingsFields = [
+  'borderRadius',
+  'gap',
+  'taskRemoveConfirmation',
+  'settingsImportProtection',
+  'theme',
+  'themeMainColor'
+]
 
 const parseString = string => {
   try {
@@ -70,15 +80,18 @@ const parseString = string => {
 export const useLS = create(() => parseString(localStorage.getItem('data')))
 
 const _LSControls = {
-  setTaskRemoveConfirmation: taskRemoveConfirmation =>
-    useLS.setState({ taskRemoveConfirmation }),
   setBorderRadius: borderRadius => useLS.setState({ borderRadius }),
   setTheme: theme => useLS.setState({ theme }),
   setGap: gap => useLS.setState({ gap }),
 
   setTasks: tasks => useLS.setState({ tasks }),
   setCategories: categories => useLS.setState({ categories }),
-  setWallets: wallets => useLS.setState({ wallets })
+  setWallets: wallets => useLS.setState({ wallets }),
+
+  setTaskRemoveConfirmation: taskRemoveConfirmation =>
+    useLS.setState({ taskRemoveConfirmation }),
+  setSettingsImportProtection: settingsImportProtection =>
+    useLS.setState({ settingsImportProtection })
 }
 
 export const LSControls = {
@@ -98,6 +111,12 @@ export const LSControls = {
   setBigGap: () => _LSControls.setGap('big'),
   setStandardGap: () => _LSControls.setGap('standard'),
   setSmallGap: () => _LSControls.setGap('small'),
+
+  getSettingsImportProtection: () => useLS.getState().settingsImportProtection,
+  enableSettingsImportProtection: () =>
+    _LSControls.setSettingsImportProtection(true),
+  disableSettingsImportProtection: () =>
+    _LSControls.setSettingsImportProtection(false),
 
   getTaskRemoveConfirmation: () => useLS.getState().taskRemoveConfirmation,
   enableTaskRemoveConfirmation: () =>
@@ -228,7 +247,12 @@ export const LSControls = {
       useLS.getState().wallets.filter(wallet => wallet.id !== id)
     ),
 
-  import: serializedStore => useLS.setState(parseString(serializedStore)),
+  import: serializedStore => {
+    const parsedStore = parseString(serializedStore)
+    if (LSControls.getSettingsImportProtection())
+      settingsFields.forEach(field => delete parsedStore[field])
+    useLS.setState({ ...useLS.getState, ...parsedStore })
+  },
   export: () => JSON.stringify(useLS.getState()),
   reset: () => {
     localStorage.setItem('data', '')

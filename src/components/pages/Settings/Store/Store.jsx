@@ -1,11 +1,14 @@
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import Arrow from '../../../../assets/icons/arrow.svg'
 import Trashcan from '../../../../assets/icons/trashcan.svg'
 import { usePopup } from '../../../../hooks/usePopup'
 import { LSControls } from '../../../../stores/useLS'
+import { debounce } from '../../../../utils/debounce'
 import { Button } from '../../../controls/buttons/Button'
 import { IconButton } from '../../../controls/buttons/IconButton'
+import { Switch } from '../../../controls/buttons/Switch'
 import { AreaInput } from '../../../controls/inputs/AreaInput'
 import { Actions } from '../../../ui/Actions'
 import { Gap } from '../../../ui/Gap'
@@ -15,7 +18,18 @@ import c from './Store.module.scss'
 
 export const Store = () => {
   const controls = usePopup()
-  const { control, getValues, setValue } = useForm()
+  const { control, getValues, setValue, watch } = useForm({
+    defaultValues: {
+      settingsImportProtection: LSControls.getSettingsImportProtection()
+    }
+  })
+
+  const settingsImportProtection = watch('settingsImportProtection')
+
+  useEffect(() => {
+    if (settingsImportProtection) LSControls.enableSettingsImportProtection()
+    else LSControls.disableSettingsImportProtection()
+  }, [settingsImportProtection])
 
   const importStore = () => LSControls.import(getValues('store'))
 
@@ -33,6 +47,11 @@ export const Store = () => {
         label="Импорт и экспорт"
         placeholder="Ваши данные..."
         name="store"
+        control={control}
+      />
+      <Switch
+        label="Предотвратить импортирование настроек"
+        name="settingsImportProtection"
         control={control}
       />
       <Gap className={c.gap}>
