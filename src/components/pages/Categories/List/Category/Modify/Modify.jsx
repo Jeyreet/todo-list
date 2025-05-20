@@ -4,9 +4,8 @@ import { useForm } from 'react-hook-form'
 
 import { LSControls } from '../../../../../../stores/useLS'
 import { Button } from '../../../../../controls/buttons/Button'
-import { Switch } from '../../../../../controls/buttons/Switch'
 import { Input } from '../../../../../controls/inputs/Input'
-import { NumberInput } from '../../../../../controls/inputs/NumberInput'
+import { Radio } from '../../../../../controls/inputs/Radio'
 import { Actions } from '../../../../../ui/Actions'
 import { Gap } from '../../../../../ui/Gap'
 import { Popup } from '../../../../../ui/Popup'
@@ -16,8 +15,8 @@ import c from './Modify.module.scss'
 dayjs.extend(customParseFormat)
 
 export const Modify = ({ id, controls }) => {
-  const wallet = LSControls.getWallet(id)
-  const modifyWallet = LSControls.modifyWallet
+  const category = LSControls.getCategory(id)
+  const modifyCategory = LSControls.modifyCategory
 
   const {
     control,
@@ -26,39 +25,40 @@ export const Modify = ({ id, controls }) => {
   } = useForm({
     mode: 'onChange',
     defaultValues: {
-      name: wallet.name,
-      balance: wallet.balance,
-      main: wallet.main
+      name: category.name,
+      type: category.type
     }
   })
 
-  const handleModifyWallet = data => {
-    modifyWallet(id, data)
+  const handleModifyCategory = data => {
+    modifyCategory(id, data)
     controls.close()
   }
 
   return (
     <Popup controls={controls} minWidth={300}>
       <Gap column>
-        <Title>Изменить счет</Title>
-        <form onSubmit={handleSubmit(handleModifyWallet)}>
+        <Title>Изменить категорию</Title>
+        <form onSubmit={handleSubmit(handleModifyCategory)}>
           <Popup.Scroller>
             <Gap column>
               <Input
                 label="Название"
-                placeholder="Наличные..."
+                placeholder="Продукты..."
                 name="name"
                 rules={{ required: 'Обязательное' }}
                 control={control}
                 autoFocus
               />
-              <NumberInput
-                label="Баланс"
-                name="balance"
-                precision={2}
+              <Radio
+                label="Тип"
+                name="type"
+                options={[
+                  { value: 'expense', label: 'Расходы' },
+                  { value: 'income', label: 'Доходы' }
+                ]}
                 control={control}
               />
-              <Switch label="Сделать основным" name="main" control={control} />
             </Gap>
           </Popup.Scroller>
           <Actions>

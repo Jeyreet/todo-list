@@ -10,9 +10,10 @@ import { Gap } from '../../../ui/Gap'
 import { Popup } from '../../../ui/Popup'
 import { Title } from '../../../ui/Title'
 import c from './Add.module.scss'
+import { Radio } from '../../../controls/inputs/Radio'
 
 export const Add = ({ controls }) => {
-  const addWallet = LSControls.addWallet
+  const addCategory = LSControls.addCategory
 
   const {
     control,
@@ -26,8 +27,8 @@ export const Add = ({ controls }) => {
     }
   })
 
-  const handleAddWallet = data => {
-    addWallet(data)
+  const handleAddCategory = data => {
+    addCategory(data)
     reset()
     controls.close()
   }
@@ -35,25 +36,27 @@ export const Add = ({ controls }) => {
   return (
     <Popup controls={controls} minWidth={300}>
       <Gap column>
-        <Title>Добавить счет</Title>
-        <form onSubmit={handleSubmit(handleAddWallet)}>
+        <Title>Добавить категорию</Title>
+        <form onSubmit={handleSubmit(handleAddCategory)}>
           <Popup.Scroller>
             <Gap column>
               <Input
                 label="Название"
-                placeholder="Наличные..."
+                placeholder="Продукты..."
                 name="name"
                 rules={{ required: 'Обязательное' }}
                 control={control}
                 autoFocus
               />
-              <NumberInput
-                label="Баланс"
-                name="balance"
-                precision={2}
+              <Radio
+                label="Тип"
+                name="type"
+                options={[
+                  { value: 'expense', label: 'Расходы' },
+                  { value: 'income', label: 'Доходы' }
+                ]}
                 control={control}
               />
-              <Switch label="Сделать основным" name="main" control={control} />
             </Gap>
           </Popup.Scroller>
           <Actions>

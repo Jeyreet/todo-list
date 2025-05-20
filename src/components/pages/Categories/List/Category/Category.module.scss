@@ -1,0 +1,22 @@
+@use '../../../../../styles/mixins';
+
+.Category {
+  margin: 0 0 var(--gap);
+}
+
+.header {
+  justify-content: space-between;
+  align-items: start;
+}
+
+.button {
+  margin: calc(var(--gap) / -2);
+}
+
+.inner {
+  padding: calc(var(--gap) / 2);
+}
+
+.main {
+  color: var(--ca);
+}

@@ -143,6 +143,8 @@ export const LSControls = {
   removeTask: id =>
     _LSControls.setTasks(useLS.getState().tasks.filter(task => task.id !== id)),
 
+  getCategory: id =>
+    useLS.getState().categories.find(category => category.id === id),
   addCategory: data => {
     const categories = useLS.getState().categories
 

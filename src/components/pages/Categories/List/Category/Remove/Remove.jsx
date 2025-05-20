@@ -7,22 +7,22 @@ import { Title } from '../../../../../ui/Title'
 import c from './Remove.module.scss'
 
 export const Remove = ({ id, controls }) => {
-  const wallet = LSControls.getWallet(id)
-  const removeWallet = LSControls.removeWallet
+  const category = LSControls.getCategory(id)
+  const removeCategory = LSControls.removeCategory
 
-  const handleRemoveWallet = () => {
-    removeWallet(id)
+  const handleRemoveCategory = () => {
+    removeCategory(id)
     controls.close()
   }
 
   return (
     <Popup controls={controls} maxWidth={320}>
       <Gap column>
-        <Title>Удаление задачи</Title>
-        <p>Вы действительно хотите удалить счет "{wallet.name}"?</p>
-        <p>Это также удалит все его операции</p>
+        <Title>Удаление категории</Title>
+        <p>Вы действительно хотите удалить категорию "{category.name}"?</p>
+        <p>Это также удалит все вложенные категории и их операции</p>
         <Actions>
-          <Button onClick={handleRemoveWallet}>Удалить</Button>
+          <Button onClick={handleRemoveCategory}>Удалить</Button>
           <Button onClick={controls.close}>Отмена</Button>
         </Actions>
       </Gap>
