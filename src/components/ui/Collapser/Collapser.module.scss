@@ -6,6 +6,19 @@
     animation: opening .5s forwards;
 
     @keyframes opening { from { grid-template-rows: 0fr } }
+
+    .wrapper {
+      animation: overflow-delay 1ms .5s forwards;
+
+      @keyframes overflow-delay {
+        from {
+          overflow: hidden;
+        }
+        to {
+          overflow: visible;
+        }
+      }
+    }
   }
 
   &[data-unmounted] {
