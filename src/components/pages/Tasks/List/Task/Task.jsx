@@ -59,7 +59,7 @@ export const Task = memo(({ task: { id, name, desc, start, end, done } }) => {
         </Gap>
         {(desc !== '' || start || end) && (
           <Gap className={c.desc}>
-            <pre>{desc}</pre>
+            {desc}
             {(start || end) && (
               <Gap>
                 <Gap column>
