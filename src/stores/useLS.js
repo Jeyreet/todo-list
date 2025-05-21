@@ -31,6 +31,14 @@ const taskSchema = z.object({
   done: z.literal(true).optional()
 })
 
+const operationSchema = z.object({
+  id: z.number(),
+  category: z.number(),
+  wallet: z.number(),
+  amount: z.number(),
+  desc: z.string().optional()
+})
+
 const categorySchema = z.object({
   id: z.number(),
   name: z.string(),
@@ -52,6 +60,7 @@ const schema = z.object({
   gap: z.enum(['standard', 'big', 'small']).catch('standard'),
 
   tasks: zodObjectsArray(taskSchema),
+  operations: zodObjectsArray(operationSchema),
   categories: zodObjectsArray(categorySchema),
   wallets: zodObjectsArray(walletSchema),
 
@@ -85,6 +94,7 @@ const _LSControls = {
   setGap: gap => useLS.setState({ gap }),
 
   setTasks: tasks => useLS.setState({ tasks }),
+  setOperations: operations => useLS.setState({ operations }),
   setCategories: categories => useLS.setState({ categories }),
   setWallets: wallets => useLS.setState({ wallets }),
 
@@ -161,6 +171,20 @@ export const LSControls = {
   },
   removeTask: id =>
     _LSControls.setTasks(useLS.getState().tasks.filter(task => task.id !== id)),
+
+  getOperation: id =>
+    useLS.getState().operations.find(operation => operation.id === id),
+  addOperation: data => {
+    const operations = useLS.getState().operations
+
+    const newOperation = {
+      ...data,
+      desc: data.desc ? data.desc : undefined,
+      id: operations.length ? Math.max(...operations.map(t => t.id)) + 1 : 0
+    }
+
+    _LSControls.setOperations([...operations, newOperation])
+  },
 
   getCategory: id =>
     useLS.getState().categories.find(category => category.id === id),

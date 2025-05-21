@@ -14,6 +14,12 @@ const Tasks = lazy(() =>
   import('../../../pages/Tasks').then(module => ({ default: module.Tasks }))
 )
 
+const Operations = lazy(() =>
+  import('../../../pages/Operations').then(module => ({
+    default: module.Operations
+  }))
+)
+
 const Categories = lazy(() =>
   import('../../../pages/Categories').then(module => ({
     default: module.Categories
@@ -47,6 +53,7 @@ export const Content = memo(() => {
           <Routes>
             <Route path="/home" element={<Home />} />
             <Route path="/tasks" element={<Tasks />} />
+            <Route path="/operations" element={<Operations />} />
             <Route path="/categories" element={<Categories />} />
             <Route path="/categories/:id" element={<Subcategories />} />
             <Route path="/wallets" element={<Wallets />} />
