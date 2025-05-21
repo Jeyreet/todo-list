@@ -1,6 +1,8 @@
 @use '../../../../styles/mixins';
 
 .Button {
+  min-width: auto;
+  min-height: auto;
   display: flex;
   align-items: stretch;
 

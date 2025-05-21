@@ -1,5 +1,7 @@
 body, body * {
   box-sizing: border-box;
+  min-width: 0;
+  min-height: 0;
   margin: 0;
   box-shadow: none;
   outline: none;
@@ -12,7 +14,9 @@ body, body * {
   font-weight: inherit;
   color: inherit;
 
+  hyphens: auto;
   list-style: none;
+  overflow-wrap: break-word;
   resize: none;
   -webkit-tap-highlight-color: transparent;
   text-decoration: none;

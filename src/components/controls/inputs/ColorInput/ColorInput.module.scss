@@ -43,6 +43,7 @@
 }
 
 .selectorWrapper {
+  min-width: auto;
   height: calc(100% + 8px);
   border-radius: var(--brr);
   background-color: var(--lbg);
