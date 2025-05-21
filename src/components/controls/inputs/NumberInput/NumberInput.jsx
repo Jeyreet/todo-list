@@ -56,6 +56,11 @@ export const NumberInput = memo(
       )
     }
 
+    const handleFocus = e => {
+      if (e.target.value === '0,00')
+        e.target.setSelectionRange(0, e.target.value.length)
+    }
+
     return (
       <label>
         <Header className={cs.header} label={label} error={error} />
@@ -63,9 +68,11 @@ export const NumberInput = memo(
           className={c.input}
           onChange={handleChange}
           onBlur={onBlur}
+          onFocus={handleFocus}
           value={displayValue}
           ref={ref}
           type="text"
+          inputMode="numeric"
           autoFocus={autoFocus}
         />
       </label>
