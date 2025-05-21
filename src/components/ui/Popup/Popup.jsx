@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { useEffect, useRef } from 'react'
 
 import { PopupPortal } from '../../App/PopupPortal'
 import { Scroller } from '../../controls/Scroller'
@@ -16,12 +17,19 @@ export const Popup = ({
   cs = {},
   innerStyle = {}
 }) => {
+  const popupRef = useRef(null)
+
+  useEffect(() => {
+    if (popupRef.current) popupRef.current.close = controls.close
+  }, [popupRef.current])
+
   return (
     <PopupPortal>
       {controls.isOpened && (
         <div
           className={clsx(c.Popup, className, background && c.background)}
           onMouseDown={controls.close}
+          ref={popupRef}
         >
           <div
             className={clsx(c.inner, cs.inner)}

@@ -6,7 +6,9 @@ export const useUI = create((s, g) => {
     setCurrentPageTitle: title => s({ currentPageTitle: title }),
 
     isMenuOpened: false,
-    openMenu: () => s({ isMenuOpened: true }),
+    openMenu: () => {
+      if (!g().isScreenWide) s({ isMenuOpened: true })
+    },
     closeMenu: () => s({ isMenuOpened: false }),
 
     isPopupOpened: false,
@@ -43,7 +45,10 @@ window.addEventListener('app_rendered', () => {
       if (children.length === 0) {
         if (useUI.getState().isMenuOpened) useUI.getState().closeMenu()
         else useUI.getState().openMenu()
-      } else children[children.length - 1].close()
+      } else {
+        console.log(children[children.length - 1])
+        children[children.length - 1].close()
+      }
     }
   })
 
