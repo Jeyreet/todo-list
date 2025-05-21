@@ -1,0 +1,1 @@
+import{a as r,r as s,j as o}from"./index-B7GhJnNH.js";import{C as a}from"./Collapser-BGNvO10H.js";const p=()=>{const t=r(e=>e.setCurrentPageTitle);return s.useLayoutEffect(()=>t("Операции")),o.jsx(a,{children:"Операции"})};export{p as Operations};

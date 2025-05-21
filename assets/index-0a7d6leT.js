@@ -1,1 +1,0 @@
-import{u as r,r as s,j as o}from"./index-D--iTvp1.js";import{C as a}from"./Collapser-C7gsJAZe.js";const i=()=>{const t=r(e=>e.setCurrentPageTitle);return s.useLayoutEffect(()=>t("Операции")),o.jsx(a,{children:"Операции"})};export{i as Operations};
