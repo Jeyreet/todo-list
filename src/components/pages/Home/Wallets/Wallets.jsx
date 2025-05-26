@@ -16,7 +16,11 @@ export const Wallets = () => {
   return (
     <>
       <Title indent>Счета</Title>
-      <p>Баланс всех счетов: {makePrecision(amount, 2)}</p>
+      {wallets.length > 0 ? (
+        <p>Баланс всех счетов: {makePrecision(amount, 2)}</p>
+      ) : (
+        <p>Счетов не найдено</p>
+      )}
     </>
   )
 }
